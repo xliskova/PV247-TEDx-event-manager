@@ -1,3 +1,13 @@
+## PV247 - TEDx event manager
+
+- 485281 - Marek Macho
+
+- 492782 - Marek Seďa
+
+- 492966 - Magdaléna Lišková
+
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
