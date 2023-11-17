@@ -1,0 +1,6 @@
+export enum EventType {
+  TALK = 'TALK',
+  PERFORMANCE = 'PERFORMANCE',
+  DISCUSSION = 'DISCUSSION',
+  OTHER = 'OTHER',
+}
