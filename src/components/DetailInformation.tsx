@@ -9,13 +9,13 @@ interface DetailInformationProps {
 export const DetailInformation = ({ className }: DetailInformationProps) => {
   return (
     <div
-      className={`flex lg:flex-row flex-col lg:p-16 mb-16 rounded-2xl shadow-md ${className}`}
+      className={`flex lg:flex-row flex-col lg:p-16 mb-8 rounded-2xl shadow-md bg-white ${className}`}
     >
       <div className="flex justify-center lg:w-full">
         <Image
           src={tedxImage}
           alt="image"
-          className="w-1/2 md:object-contain lg:w-5/6"
+          className="w-1/2 p-5 md:object-contain lg:w-5/6"
         />
       </div>
       <div className="px-6 text-justify">

@@ -62,12 +62,13 @@ export const Timeline = () => {
             <VerticalTimelineElement
               key={index}
               contentStyle={contentStyle}
-              date={item.startTime.toLocaleString()}
+              date={item.startTime && item.startTime.toLocaleString()}
+              dateClassName="text-left"
               visible={true}
               icon={getIcon(item).icon}
               iconStyle={getIcon(item).iconStyle}
             >
-              <EventCard event={item} />
+              {item.title && <EventCard event={item} />}
             </VerticalTimelineElement>
           );
         })}

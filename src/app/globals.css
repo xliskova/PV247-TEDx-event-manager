@@ -10,6 +10,11 @@
   /* this is the vertical line */
   background: black !important;
 }
+.vertical-timeline {
+  /* this is the circle */
+  padding: 0 !important;
+
+}
 
 @layer base {
   h1 {
