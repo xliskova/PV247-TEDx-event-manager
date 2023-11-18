@@ -13,13 +13,7 @@ export const Navbar = () => (
       </Link>
       <Link
         className="mr-6 flex flex-shrink-0 items-center text-white"
-        href="/interactive"
-      >
-        <span className="text-xl font-semibold tracking-tight">Catering</span>
-      </Link>
-      <Link
-        className="mr-6 flex flex-shrink-0 items-center text-white"
-        href="/interactive"
+        href="/1"
       >
         <span className="text-xl font-semibold tracking-tight">Rečníci</span>
       </Link>

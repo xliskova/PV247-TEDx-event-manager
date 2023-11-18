@@ -48,8 +48,11 @@ export const Timeline = () => {
   };
 
   return (
-    <div className="App m-3 p-5">
-      <h1 className="text-3xl font-bold p-2"> TEDx Trenčín - tu bude názov podujatia </h1>
+    <div className="App p-5 bg-grey">
+      <h1 className="text-3xl font-bold p-2">
+        {' '}
+        TEDx Trenčín - tu bude názov podujatia{' '}
+      </h1>
       <VerticalTimeline>
         {data.map((item, index) => {
           const contentStyle = item.active
@@ -64,8 +67,7 @@ export const Timeline = () => {
               icon={getIcon(item).icon}
               iconStyle={getIcon(item).iconStyle}
             >
-              <EventCard event={item}/>
-
+              <EventCard event={item} />
             </VerticalTimelineElement>
           );
         })}
