@@ -59,6 +59,10 @@ export const data: Event[] = [
   },
   {
     id: 5,
+    type: EventType.OTHER,
+  },
+  {
+    id: 6,
     type: EventType.PERFORMANCE,
     title: 'Názov performance',
     speaker: 'Meno Priezvisko',
@@ -69,7 +73,7 @@ export const data: Event[] = [
     active: false,
   },
   {
-    id: 6,
+    id: 7,
     type: EventType.TALK,
     title: 'Názov talku',
     speaker: 'Meno Priezvisko',
@@ -80,7 +84,7 @@ export const data: Event[] = [
     active: false,
   },
   {
-    id: 7,
+    id: 8,
     type: EventType.TALK,
     title: 'Názov talku',
     speaker: 'Meno Priezvisko',
@@ -91,7 +95,7 @@ export const data: Event[] = [
     active: false,
   },
   {
-    id: 8,
+    id: 9,
     type: EventType.TALK,
     title: 'Názov talku',
     speaker: 'Meno Priezvisko',
@@ -102,7 +106,7 @@ export const data: Event[] = [
     active: false,
   },
   {
-    id: 9,
+    id: 10,
     type: EventType.OTHER,
   },
 ];

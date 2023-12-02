@@ -11,6 +11,9 @@ export const Navbar = () => (
       <Link className="mr-6 flex flex-shrink-0 items-center" href="/speakers">
         <span className="text-xl font-semibold tracking-tight">Rečníci</span>
       </Link>
+      <Link className="mr-6 flex flex-shrink-0 items-center" href="/slido">
+        <span className="text-xl font-semibold tracking-tight">Slido</span>
+      </Link>
       <button className="bg-red p-4 rounded">Prihlásenie</button>
     </div>
   </nav>
