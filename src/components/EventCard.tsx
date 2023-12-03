@@ -14,7 +14,19 @@ export const EventCard = ({ event }: { event: Event }) => {
         <h2 className="font-bold text-3xl"> {event.speaker} </h2>
         {event.description && <p>{event.description}</p>}
         <div className="flex justify-end pt-5">
-          <Tags />
+          <Tags
+            tags={[
+              { id: 1, title: 'IT', color: 'primary', eventId: event.id },
+              { id: 2, title: 'Tech', color: 'error', eventId: event.id },
+              {
+                id: 3,
+                title: 'Enviroment',
+                color: 'success',
+                eventId: event.id,
+              },
+              { id: 4, title: 'AI', color: 'secondary', eventId: event.id },
+            ]}
+          />
         </div>
       </div>
     </Link>

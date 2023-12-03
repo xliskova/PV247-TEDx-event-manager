@@ -21,7 +21,6 @@ export const DetailInformation = ({ className }: DetailInformationProps) => {
       <div className="px-6 text-justify">
         <div className="flex justify-between">
           <h1>Martin Spano</h1>
-          <Tags />
         </div>
         <span>
           Martin Spano je počítačový vedec, futurista, spisovateľ a člen
