@@ -56,15 +56,15 @@ export const Timeline = () => {
         TEDx Trenčín - tu bude názov podujatia{' '}
       </h1>
       <VerticalTimeline>
-        {data.map((item, index) => {
+        {data.map((item) => {
           const contentStyle = item.active
             ? { background: '#E62B1E', color: 'black' }
             : undefined;
           return (
             <VerticalTimelineElement
-              key={index}
+              key={item.id}
               contentStyle={contentStyle}
-              date={item.startTime && item.startTime.toLocaleString()}
+              date={item.startTime && item.startTime.toLocaleString('sk')}
               dateClassName="text-left"
               visible={true}
               icon={getIcon(item.type).icon}

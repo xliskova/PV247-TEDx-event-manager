@@ -10,7 +10,6 @@ export default function Home() {
         Do začiatku akcie ostáva 2 dni 14 hodín 15 minút
       </h1>
       <Timeline />
-      <Timeline />
     </>
   );
 }
