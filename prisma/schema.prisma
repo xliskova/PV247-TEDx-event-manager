@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Block {
+  id     Int     @id @default(autoincrement())
+  title  String
+  events Event[]
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  eventType   String // not the best but enums are not supported in sqlite
+  startTime   DateTime
+  endTime     DateTime
+  speaker     Speaker  @relation(fields: [speakerId], references: [id])
+  speakerId   Int
+  block       Block    @relation(fields: [blockId], references: [id])
+  blockId     Int
+  tags        Tag[]
+}
+
+model Speaker {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String
+  image       Bytes
+  events      Event[]
+}
+
+model Tag {
+  id      Int     @id @default(autoincrement())
+  title   String
+  color   String
+  event   Event[]
+  eventId Int?
+}
