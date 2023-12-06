@@ -16,6 +16,11 @@ export const Navbar = () => (
         </Link>
       </li>
       <li>
+        <Link className="mr-6 flex flex-shrink-0 items-center" href="/tags">
+          <span className="text-xl font-semibold tracking-tight">Tagy</span>
+        </Link>
+      </li>
+      <li>
         <button className="bg-red p-4 rounded">Prihlásenie</button>
       </li>
     </ul>
