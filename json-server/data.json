@@ -1,0 +1,63 @@
+{
+  "tags": [
+    {
+      "title": "test6",
+      "color": "primary",
+      "id": 2
+    },
+    {
+      "title": "test",
+      "color": "primary",
+      "id": 8
+    },
+    {
+      "title": "test",
+      "color": "primary",
+      "id": 9
+    },
+    {
+      "title": "tes3",
+      "color": "primary",
+      "id": 10
+    },
+    {
+      "title": "gggggg",
+      "color": "primary",
+      "id": 11
+    },
+    {
+      "title": "xxx",
+      "color": "primary",
+      "id": 12
+    },
+    {
+      "title": "uuuuuu",
+      "color": "primary",
+      "id": 13
+    },
+    {
+      "title": "marek",
+      "color": "primary",
+      "id": 14
+    }
+  ],
+  "speakers": [
+    {
+      "name": "Marek Seďa",
+      "description": "popis",
+      "image": "test",
+      "id": 1
+    }
+  ],
+  "events": [
+    {
+      "name": "TEst",
+      "description": "test",
+      "eventType": "DISCUSSION",
+      "startTime": "2023-12-04T00:30",
+      "endTime": "2023-12-05T00:30",
+      "id": 1,
+      "title": "Popisek"
+    }
+  ]
+}
