@@ -1,10 +1,9 @@
 'use client';
 
 import { SessionProvider, useSession } from 'next-auth/react';
-import { PropsWithChildren, use } from 'react';
 
 export default function AdminLayout({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {
@@ -20,6 +19,6 @@ export default function AdminLayout({
     return <div>Unauthorized</div>;
   }
   return (
-    {children}
+    <div className='h-screen text-center m-16'>{children}</div>
   );
 }

@@ -1,0 +1,19 @@
+{
+  "tags": [
+    {
+      "title": "test2",
+      "color": "primary",
+      "id": 2
+    },
+    {
+      "title": "xxx",
+      "color": "primary",
+      "id": 4
+    },
+    {
+      "title": "test",
+      "color": "primary",
+      "id": 5
+    }
+  ]
+}
