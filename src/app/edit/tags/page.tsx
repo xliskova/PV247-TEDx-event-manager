@@ -1,12 +1,12 @@
 'use client';
 import React, { useState } from 'react';
-import { TagTable } from '@/components/TagTable';
+import { TagTable } from '@/components/tables/TagTable';
 import { Button } from '@mui/material';
 import { Tag } from '@prisma/client';
-import { useQuery, useQueryClient } from 'react-query';
-import { TagDialog } from '@/components/TagDialog';
+import { useQueryClient } from 'react-query';
+import { TagDialog } from '@/components/dialogs/TagDialog';
+import { deleteTag, saveTag, useTags } from '@/app/api/api';
 
-const baseUrl = "http://localhost:8080";
 
 const EditTagsPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -14,34 +14,12 @@ const EditTagsPage = () => {
 
   const queryClient = useQueryClient()
 
-  const { data: tags, isLoading } = useQuery('tags', async () => {
-    const res = await fetch(`${baseUrl}/tags`);
-    return res.json();
-  })
-
-  const deleteData = async (id: number) => {
-    await fetch(`${baseUrl}/tags/${id}`, {
-      method: 'DELETE',
-    });
-    queryClient.invalidateQueries('tags');
-  };
-
-  const saveTag = async (tag: Tag) => {
-    await fetch(`${baseUrl}/tags`, {
-      method: tag.id ? 'PUT' : 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(tag)  
-    });
-    queryClient.invalidateQueries('tags');
-  };
-
+  const { data: tags, isLoading } = useTags()
 
   if (isLoading) return <div>Loading...</div>;
 
   const handleDeleteRow = async (idToBeDeleted: number) => {
-    await deleteData(idToBeDeleted);
+    await deleteTag(idToBeDeleted, () => queryClient.invalidateQueries('tags'))
   };
 
   const handleEditRow = (index: number) => {
@@ -51,8 +29,8 @@ const EditTagsPage = () => {
 
   return (
     <div>
-      <TagDialog tag={tags.find((it: Tag) => it.id === rowToEdit)} onSubmit={(tag: Tag) => saveTag(tag)} close={() => setModalOpen(false)} isOpen={modalOpen} />
-      <TagTable deleteRow={handleDeleteRow} editRow={handleEditRow} tags={tags} />
+      <TagDialog tag={tags?.find((it: Tag) => it.id === rowToEdit)} onSubmit={async (tag: Tag) => await saveTag(tag, () => queryClient.invalidateQueries('tags'))} close={() => setModalOpen(false)} isOpen={modalOpen} />
+      <TagTable deleteRow={handleDeleteRow} editRow={handleEditRow} tags={tags ?? []} />
       <Button
         variant="outlined"
         color="inherit"
