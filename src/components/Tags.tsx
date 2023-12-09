@@ -1,8 +1,7 @@
 import Chip, { ChipPropsColorOverrides } from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import { Tag } from '@prisma/client';
-import { OverridableStringUnion } from '@mui/types';
-import { createTheme } from '@mui/material';
+import { TagColor } from '@/schemas/TagSchema';
 
 export const Tags = ({ tags }: { tags: Tag[] }) => {
   return (

@@ -34,16 +34,15 @@ model Speaker {
   id          Int     @id @default(autoincrement())
   name        String
   description String
-  image       Bytes
+  image       Bytes?
   events      Event[]
 }
 
 model Tag {
-  id      Int     @id @default(autoincrement())
-  title   String
-  color   String
-  event   Event[]
-  eventId Int?
+  id     Int     @id @default(autoincrement())
+  title  String
+  color  String
+  events Event[]
 }
 
 
