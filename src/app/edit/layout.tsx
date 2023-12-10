@@ -3,12 +3,11 @@
 import { SessionProvider, useSession } from 'next-auth/react';
 
 export default function AdminLayout({
-  children
+  children,
 }: {
   children: React.ReactNode;
 }) {
-
-  const {data, status} = useSession();
+  const { data, status } = useSession();
   if (status === 'loading') {
     return <div>loading...</div>;
   }
@@ -22,7 +21,5 @@ export default function AdminLayout({
   ) {
     return <div>Unauthorized</div>;
   }
-  return (
-    <div className='h-screen text-center m-16'>{children}</div>
-  );
+  return <div className="h-screen text-center m-16">{children}</div>;
 }

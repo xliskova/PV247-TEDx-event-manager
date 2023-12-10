@@ -7,19 +7,18 @@ import { useQueryClient } from 'react-query';
 import { TagDialog } from '@/components/dialogs/TagDialog';
 import { deleteTag, saveTag, useTags } from '@/app/api/api';
 
-
 const EditTagsPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [rowToEdit, setRowToEdit] = useState<number | null>(null);
 
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
-  const { data: tags, isLoading } = useTags()
+  const { data: tags, isLoading } = useTags();
 
   if (isLoading) return <div>Loading...</div>;
 
   const handleDeleteRow = async (idToBeDeleted: number) => {
-    await deleteTag(idToBeDeleted, () => queryClient.invalidateQueries('tags'))
+    await deleteTag(idToBeDeleted, () => queryClient.invalidateQueries('tags'));
   };
 
   const handleEditRow = (index: number) => {
@@ -29,13 +28,26 @@ const EditTagsPage = () => {
 
   return (
     <div>
-      <TagDialog tag={tags?.find((it: Tag) => it.id === rowToEdit)} onSubmit={async (tag: Tag) => await saveTag(tag, () => queryClient.invalidateQueries('tags'))} close={() => setModalOpen(false)} isOpen={modalOpen} />
-      <TagTable deleteRow={handleDeleteRow} editRow={handleEditRow} tags={tags ?? []} />
+      <TagDialog
+        tag={tags?.find((it: Tag) => it.id === rowToEdit)}
+        onSubmit={async (tag: Tag) => {
+          await saveTag(tag, () => queryClient.invalidateQueries('tags'));
+        }}
+        close={() => setModalOpen(false)}
+        isOpen={modalOpen}
+      />
+      <TagTable
+        deleteRow={handleDeleteRow}
+        editRow={handleEditRow}
+        tags={tags ?? []}
+      />
       <Button
         variant="outlined"
         color="inherit"
-        className="text-dark-grey m-5"
-        onClick={() => setModalOpen(true)}
+        onClick={() => {
+          setModalOpen(true);
+          setRowToEdit(null);
+        }}
       >
         Nový tag
       </Button>
