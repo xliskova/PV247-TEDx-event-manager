@@ -19,10 +19,10 @@ const NavbarEditDropdown = () => {
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        className="text-2xl font-semibold tracking-tight cursor-pointer"
+        className="text-2xl font-semibold tracking-tight cursor-pointer border-2 border-red px-3 py-2 rounded-md"
         onClick={handleClick}
       >
-        Edit
+        Upraviť
       </span>
       <Menu
         id="basic-menu"
@@ -36,12 +36,12 @@ const NavbarEditDropdown = () => {
         <MenuItem onClick={handleClose} component={Link} href="/edit/speakers">
           Rečníci
         </MenuItem>
-        <MenuItem onClick={handleClose} component={Link} href="/edit/events" >
+        <MenuItem onClick={handleClose} component={Link} href="/edit/events">
           Udalosti
         </MenuItem>
       </Menu>
     </div>
   );
-}
+};
 
 export default NavbarEditDropdown;

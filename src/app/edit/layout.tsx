@@ -15,7 +15,11 @@ export default function AdminLayout({
   if (status === 'unauthenticated') {
     return <div>Please log in.</div>;
   }
-  if (data?.user.email != 'lelenka.liskova@gmail.com') { 
+  if (
+    data?.user.email != 'majky.macho@gmail.com' &&
+    data?.user.email != 'lelenka.liskova@gmail.com' &&
+    data?.user.email != 'marek.seda@gmail.com'
+  ) {
     return <div>Unauthorized</div>;
   }
   return (
