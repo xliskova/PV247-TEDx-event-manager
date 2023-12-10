@@ -1,7 +1,8 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { db } from "../db"
 import { ServiceResponse, ServiceStatusCode } from "./ServiceRespose";
-import { SpeakerCreateDto, SpeakerCreatedDto, SpeakerDeletedDto, SpeakerGetDto, SpeakerUpdateDto } from "../dto/SpeakerDto";
+import { ImageDto, SpeakerCreateDto, SpeakerCreatedDto, SpeakerDeletedDto, SpeakerGetDto, SpeakerUpdateDto } from "../dto/SpeakerDto";
+import { CloudinaryResponseSchema } from "../dto/CloudinaryResponse";
 
 const UKNOWN_ERROR = { status: ServiceStatusCode.Error, errorMessage: "Unknown" };
 
@@ -38,9 +39,23 @@ export const GetSpeakerById = async (id : number) : Promise<ServiceResponse<Spea
 
 export const CreateSpeaker = async (speakerCreateDto : SpeakerCreateDto) : Promise<ServiceResponse<SpeakerCreatedDto>> => {
     try {
+        let imageDto : ImageDto | undefined = undefined;
+        if (speakerCreateDto.image) {
+            const {status, errorMessage, data } = await UploadImage(speakerCreateDto.image);
+
+            if (status != ServiceStatusCode.Ok) {
+                return { status: status, errorMessage: errorMessage };
+            }
+            imageDto = data;
+        }
+
         const createdSpeaker = await db.speaker.create({
             data: {
-                ...speakerCreateDto
+                name: speakerCreateDto.name,
+                description: speakerCreateDto.description,
+                url: imageDto?.url,
+                signature: imageDto?.signature,
+                publicId: imageDto?.public_id
             }
         });
         return { status: ServiceStatusCode.Ok, data: createdSpeaker};    
@@ -52,23 +67,56 @@ export const CreateSpeaker = async (speakerCreateDto : SpeakerCreateDto) : Promi
     }
 }
 
-// todo: UploadImageForSpeaker
+export const UploadImage = async (image: Blob) : Promise<ServiceResponse<ImageDto>>=> {
+    const formData = new FormData();
+    formData.append("file", image);
+    formData.append("upload_preset", "ewepdtcz");
+    formData.append("api_key", "897691555549473");
 
-export const UpdateSpeaker = async (speakerupdateDto : SpeakerUpdateDto) : Promise<ServiceResponse<SpeakerUpdateDto>> => {
+    const response = await fetch("https://api.cloudinary.com/v1_1/dqgi0bdib/image/upload", {
+        method: "POST",
+        body: formData
+    })
+
+    const json = await response.json();
+    const parsed = await CloudinaryResponseSchema.safeParseAsync(json);
+    
+    if (parsed.success) {
+        return { status: ServiceStatusCode.Ok, data: {url: parsed.data.url, signature: parsed.data.signature, public_id: parsed.data.public_id} }
+    } else {
+        return { status: ServiceStatusCode.Error, errorMessage: parsed.error.toString() };
+    }
+}
+
+export const UpdateSpeaker = async (speakerUpdateDto : SpeakerUpdateDto) : Promise<ServiceResponse<SpeakerUpdateDto>> => {
     try {
+        let imageDto : ImageDto | undefined = undefined;
+        if (speakerUpdateDto.image) {
+            const {status, errorMessage, data } = await UploadImage(speakerUpdateDto.image);
+
+            if (status != ServiceStatusCode.Ok) {
+                return { status: status, errorMessage: errorMessage };
+            }
+            imageDto = data;
+        }
+
         const updatedSpeaker = await db.speaker.update({
             where: {
-                id: speakerupdateDto.id
+                id: speakerUpdateDto.id
             },
             data: {
-                ...speakerupdateDto
+                description: speakerUpdateDto.description,
+                name: speakerUpdateDto.name,
+                signature: imageDto?.signature,
+                url: imageDto?.url,
+                publicId: imageDto?.public_id
             }
         });
         return {status: ServiceStatusCode.Ok, data: updatedSpeaker}
     } catch (e) {
         if (e instanceof PrismaClientKnownRequestError) {
             if (e.code === "P2001") {
-                return {status: ServiceStatusCode.NotFound, errorMessage: `The speaker with id ${speakerupdateDto.id} was not found`}
+                return {status: ServiceStatusCode.NotFound, errorMessage: `The speaker with id ${speakerUpdateDto.id} was not found`}
             }
         }
 

@@ -34,7 +34,9 @@ model Speaker {
   id          Int     @id @default(autoincrement())
   name        String
   description String
-  image       Bytes?
+  url         String?
+  signature   String?
+  publicId    String?
   events      Event[]
 }
 
