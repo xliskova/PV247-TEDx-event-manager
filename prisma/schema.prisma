@@ -35,8 +35,6 @@ model Speaker {
   name        String
   description String
   url         String?
-  signature   String?
-  publicId    String?
   events      Event[]
 }
 

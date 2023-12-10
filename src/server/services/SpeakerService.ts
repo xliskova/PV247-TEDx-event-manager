@@ -53,9 +53,7 @@ export const CreateSpeaker = async (speakerCreateDto : SpeakerCreateDto) : Promi
             data: {
                 name: speakerCreateDto.name,
                 description: speakerCreateDto.description,
-                url: imageDto?.url,
-                signature: imageDto?.signature,
-                publicId: imageDto?.public_id
+                url: imageDto?.url
             }
         });
         return { status: ServiceStatusCode.Ok, data: createdSpeaker};    
@@ -82,7 +80,7 @@ export const UploadImage = async (image: Blob) : Promise<ServiceResponse<ImageDt
     const parsed = await CloudinaryResponseSchema.safeParseAsync(json);
     
     if (parsed.success) {
-        return { status: ServiceStatusCode.Ok, data: {url: parsed.data.url, signature: parsed.data.signature, public_id: parsed.data.public_id} }
+        return { status: ServiceStatusCode.Ok, data: {url: parsed.data.url} }
     } else {
         return { status: ServiceStatusCode.Error, errorMessage: parsed.error.toString() };
     }
@@ -107,9 +105,7 @@ export const UpdateSpeaker = async (speakerUpdateDto : SpeakerUpdateDto) : Promi
             data: {
                 description: speakerUpdateDto.description,
                 name: speakerUpdateDto.name,
-                signature: imageDto?.signature,
-                url: imageDto?.url,
-                publicId: imageDto?.public_id
+                url: imageDto?.url
             }
         });
         return {status: ServiceStatusCode.Ok, data: updatedSpeaker}
