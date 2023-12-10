@@ -16,15 +16,15 @@ export const EventCard = ({ event }: { event: Event }) => {
         <div className="flex justify-end pt-5">
           <Tags
             tags={[
-              { id: 1, title: 'IT', color: 'primary', eventId: event.id },
-              { id: 2, title: 'Tech', color: 'error', eventId: event.id },
+              { id: 1, title: 'IT', color: '#fcba03', eventId: event.id },
+              { id: 2, title: 'Tech', color: '#1865c9', eventId: event.id },
               {
                 id: 3,
                 title: 'Enviroment',
-                color: 'success',
+                color: '#640ad1',
                 eventId: event.id,
               },
-              { id: 4, title: 'AI', color: 'secondary', eventId: event.id },
+              { id: 4, title: 'AI', color: '#c91885', eventId: event.id },
             ]}
           />
         </div>
