@@ -11,27 +11,33 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 type TableColumn<T> = {
-  name: String,
-  valueFn: (row: T) => ReactNode,
-}
-
-type TableProps<T> = {
-  deleteRow: (idToBeDeleted: number) => void,
-  editRow: (idToBeEdited: number) => void,
-  rows: T[],
-  getKey: (row: T) => number
-  columns: TableColumn<T>[]
+  name: String;
+  valueFn: (row: T) => ReactNode;
 };
 
-export const BasicTable = <T,>({ deleteRow, editRow, rows, columns, getKey }: TableProps<T>) => {
+type TableProps<T> = {
+  deleteRow: (idToBeDeleted: number) => void;
+  editRow: (idToBeEdited: number) => void;
+  rows: T[];
+  getKey: (row: T) => number;
+  columns: TableColumn<T>[];
+};
+
+export const BasicTable = <T,>({
+  deleteRow,
+  editRow,
+  rows,
+  columns,
+  getKey,
+}: TableProps<T>) => {
   return (
-    <Table>
+    <Table className="mb-5">
       <TableHead>
         <TableRow>
           {columns.map((column, index) => (
             <TableCell key={index}>{column.name}</TableCell>
           ))}
-          <TableCell>Akce</TableCell>
+          <TableCell></TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -40,8 +46,8 @@ export const BasicTable = <T,>({ deleteRow, editRow, rows, columns, getKey }: Ta
             {columns.map((column, colIndex) => (
               <TableCell key={colIndex}>{column.valueFn(row)}</TableCell>
             ))}
-            <TableCell className='justify-end flex'>
-              <div className='justify-end flex'>
+            <TableCell className="justify-end flex">
+              <div className="justify-end flex">
                 <IconButton aria-label="edit">
                   <EditIcon onClick={() => editRow(getKey(row))} />
                 </IconButton>
