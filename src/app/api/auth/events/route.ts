@@ -15,7 +15,7 @@ export const POST = async (req: NextRequest) => {
                 return new Response(errorMessage, {status: 500});
         }
     } else {
-        return new Response("Bad request", {status: 400});
+        return new Response(`Bad request, body: ${await req.json()}`, {status: 400});
     }
 };
 

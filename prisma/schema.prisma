@@ -23,10 +23,10 @@ model Event {
   eventType   String // not the best but enums are not supported in sqlite
   startTime   DateTime
   endTime     DateTime
-  speaker     Speaker  @relation(fields: [speakerId], references: [id])
-  speakerId   Int
-  block       Block    @relation(fields: [blockId], references: [id])
-  blockId     Int
+  speaker     Speaker? @relation(fields: [speakerId], references: [id])
+  speakerId   Int?
+  block       Block?   @relation(fields: [blockId], references: [id])
+  blockId     Int?
   tags        Tag[]
 }
 
@@ -44,7 +44,6 @@ model Tag {
   color  String
   events Event[]
 }
-
 
 // Authentication
 model Account {
