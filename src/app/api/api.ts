@@ -1,7 +1,7 @@
 import { Speaker, Tag, Event } from "@prisma/client";
 import { useQuery } from "react-query";
 
-const baseUrl = "http://localhost:8080";
+const baseUrl = "http://localhost:3000/api/auth";
 
 const deleteEntity = async (entity: string, id: number, onSuccess: () => void) => {
     await fetch(`${baseUrl}/${entity}/${id}`, {
