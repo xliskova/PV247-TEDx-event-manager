@@ -3,7 +3,6 @@ import { db } from "../db"
 import { ServiceResponse, ServiceStatusCode } from "./ServiceRespose";
 import { Tag } from "@prisma/client";
 import { TagCreateDto, TagCreatedDto, TagDeletedDto, TagGetDto, TagUpdateDto } from "../dto/TagDto";
-import { TagColor } from "@/schemas/TagSchema";
 
 const UKNOWN_ERROR = { status: ServiceStatusCode.Error, errorMessage: "Unknown" };
 
@@ -11,7 +10,7 @@ export const MapDbTagToTagGetDto = (tag: Tag) : TagGetDto => {
     return {
         id: tag.id,
         title: tag.title,
-        color: tag.color as TagColor
+        color: tag.color
     }
 };
 
