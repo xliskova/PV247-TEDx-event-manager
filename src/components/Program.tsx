@@ -1,28 +1,59 @@
 'use client';
 
 import { Timeline } from '@/components/Timeline';
-import {useEvents, useSpeakers} from '@/app/api/api';
+import { useEvents, useSpeakers } from '@/app/api/api';
+import CurrentEvent from './CurrentEvent';
+import { Event } from '@/model/Event';
+import { useEffect, useState } from 'react';
 
-export default function Program() {
+const getCurrentEvents = (events: Event[]) => {
+  const now = new Date().getTime();
+  return events.filter(
+    (event) =>
+      event.startTime.getTime() <= now &&
+      event.endTime &&
+      event.endTime?.getTime() >= now,
+  );
+};
 
-    const {data: events, isLoading: isLoadingEvents} = useEvents();
-    const {data: speakers, isLoading: isLoadingSpeakers} = useSpeakers();
+const getNextEvent = (events: Event[]) => {
+  const now = new Date().getTime();
+  return events
+    .filter((event) => event.startTime.getTime() > now)
+    .sort((event) => event.startTime.getTime())
+    .at(0);
+};
 
-    events?.sort((a, b) => a.startTime.getTime() - b.startTime.getTime())
+const Program = () => {
+  const { data: events, isLoading: isLoadingEvents } = useEvents();
+  const { data: speakers, isLoading: isLoadingSpeakers } = useSpeakers();
+  const [currentEvents, setCurrentEvents] = useState<Event[]>([]);
+  const [nextEvent, setNextEvent] = useState<Event | null>(null);
 
-    if (isLoadingEvents || isLoadingSpeakers) return (<h1>Loading...</h1>)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentEvents(getCurrentEvents(events ?? []));
+      setNextEvent(getNextEvent(events ?? []) ?? null);
+    }, 1000);
+    return () => clearInterval(interval);
+  });
 
-    if (!speakers || !events) return (<h1>Unable to fetch data...</h1>)
+  events?.sort((a, b) => a.startTime.getTime() - b.startTime.getTime());
 
-    return (
-        <>
-            <h1 className="bg-red font-bold p-10 text-3xl text-center">
-                Ahoj Marek :)
-            </h1>
-            <h1 className="bg-red pb-10 text-3xl text-center">
-                Do začiatku akcie ostáva 2 dni 14 hodín 15 minút
-            </h1>
-            <Timeline events={events} speakers={speakers} />
-        </>
-    );
-}
+  if (isLoadingEvents || isLoadingSpeakers) return <h1>Loading...</h1>;
+
+  if (!speakers || !events) return <h1>Unable to fetch data...</h1>;
+
+  return (
+    <>
+      <CurrentEvent currentEvents={currentEvents} nextEvent={nextEvent} />
+      <Timeline
+        events={events}
+        currentEvents={currentEvents}
+        speakers={speakers}
+      />
+    </>
+  );
+};
+
+export default Program;

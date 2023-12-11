@@ -48,22 +48,17 @@ const getIcon = (eventType: EventType) => {
   }
 };
 
-const isActive = (event: Event) => {
-  const now = new Date();
-  return (
-    event.startTime &&
-    event.endTime &&
-    new Date(event.startTime) < now &&
-    new Date(event.endTime) > now
-  );
-}
-
 type TimelineProps = {
   events: Event[];
   speakers: Speaker[];
+  currentEvents: Event[];
 };
 
-export const Timeline = ({events, speakers}: TimelineProps) => {
+export const Timeline = ({
+  events,
+  speakers,
+  currentEvents,
+}: TimelineProps) => {
   return (
     <div className="App p-5 bg-grey">
       <h1 className="text-3xl font-bold p-2">
@@ -72,20 +67,30 @@ export const Timeline = ({events, speakers}: TimelineProps) => {
       </h1>
       <VerticalTimeline>
         {events?.map((item) => {
-          const contentStyle = isActive(item) 
+          const contentStyle = currentEvents.includes(item)
             ? { background: '#E62B1E', color: 'black' }
             : undefined;
           return (
             <VerticalTimelineElement
               key={item.id}
               contentStyle={contentStyle}
-              date={item.startTime && format(new Date(item.startTime), 'dd.MM HH:mm')}
+              date={
+                item.startTime &&
+                format(new Date(item.startTime), 'dd.MM HH:mm')
+              }
               dateClassName="text-left"
               visible={true}
               icon={getIcon(item.eventType).icon}
               iconStyle={getIcon(item.eventType).iconStyle}
             >
-              {item.title && <EventCard event={item} speaker={speakers!!.find(speaker => speaker.id == item.speakerId)!!} />}
+              {item.title && (
+                <EventCard
+                  event={item}
+                  speaker={
+                    speakers!!.find((speaker) => speaker.id == item.speakerId)!!
+                  }
+                />
+              )}
             </VerticalTimelineElement>
           );
         })}
