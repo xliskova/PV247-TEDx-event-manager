@@ -33,7 +33,10 @@ const EditTagsPage = () => {
         onSubmit={async (tag: Tag) => {
           await saveTag(tag, () => queryClient.invalidateQueries('tags'));
         }}
-        close={() => setModalOpen(false)}
+        close={() => {
+            setModalOpen(false)
+            setRowToEdit(null)
+        }}
         isOpen={modalOpen}
       />
       <TagTable

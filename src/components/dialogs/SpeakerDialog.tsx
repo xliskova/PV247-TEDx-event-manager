@@ -49,7 +49,7 @@ export const SpeakerDialog = ({ speaker, onSubmit, close, isOpen }: SpeakerDialo
                 <input
                 type="file"
                 id="url"
-                {...form.register('value.url')}
+                {...form.register('value.url', speaker ? {} : { required: 'Image is required' })}
                 onChange={handleFileChange}
                 className="w-full p-2 border rounded"
             />

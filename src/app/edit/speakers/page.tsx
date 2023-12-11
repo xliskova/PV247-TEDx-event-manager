@@ -37,7 +37,10 @@ const EditSpeakersPage = () => {
             saveSpeaker(speaker, image, () => queryClient.invalidateQueries('speakers'))
           }
         }
-        close={() => setModalOpen(false)}
+        close={() => {
+            setModalOpen(false)
+            setRowToEdit(null)
+        }}
         isOpen={modalOpen}
       />
       <SpeakerTable
@@ -54,7 +57,7 @@ const EditSpeakersPage = () => {
           setModalOpen(true)
         }}
       >
-        Nový tag
+        Nový řečník
       </Button>
     </div>
   );

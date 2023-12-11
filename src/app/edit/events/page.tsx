@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Event } from "@/model/Event";
 import { Button } from '@mui/material';
 import { useQueryClient } from 'react-query';
@@ -24,8 +24,8 @@ const EditEventsPage = () => {
   };
 
   const handleEditRow = (index: number | null) => {
-    setRowToEdit(index);
-    setModalOpen(true);
+      setRowToEdit(index);
+      setModalOpen(true);
   };
 
   return (
@@ -35,7 +35,10 @@ const EditEventsPage = () => {
         onSubmit={(event: Event) =>
           saveEvent(event, () => queryClient.invalidateQueries('events'))
         }
-        close={() => setModalOpen(false)}
+        close={() => {
+            setModalOpen(false)
+            setRowToEdit(null)
+        }}
         isOpen={modalOpen}
       />
       <EventTable
