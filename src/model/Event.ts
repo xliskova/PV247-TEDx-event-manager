@@ -1,4 +1,5 @@
 import { EventType } from '@/eventType';
+import { Tag } from '@prisma/client';
 
 export type Event = {
   id: number;
@@ -6,7 +7,7 @@ export type Event = {
   title?: string;
   speaker?: string;
   description?: string;
-  tags?: string[];  //Tag[]
+  tags?: Tag[];
   startTime?: Date;
   endTime?: Date;
   active?: boolean;

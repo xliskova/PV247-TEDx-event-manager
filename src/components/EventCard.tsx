@@ -14,7 +14,18 @@ export const EventCard = ({ event }: { event: Event }) => {
         <h2 className="font-bold text-3xl"> {event.speaker} </h2>
         {event.description && <p>{event.description}</p>}
         <div className="flex justify-end pt-5">
-          <Tags />
+          <Tags
+            tags={[
+              { id: 1, title: 'IT', color: '#fcba03' },
+              { id: 2, title: 'Tech', color: '#1865c9' },
+              {
+                id: 3,
+                title: 'Enviroment',
+                color: '#640ad1',
+              },
+              { id: 4, title: 'AI', color: '#c91885' },
+            ]}
+          />
         </div>
       </div>
     </Link>

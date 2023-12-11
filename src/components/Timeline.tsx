@@ -16,6 +16,7 @@ import {
   faGlassCheers,
 } from '@fortawesome/free-solid-svg-icons';
 import { EventCard } from '@/components/EventCard';
+import { EventType } from '@/eventType';
 
 const talkIcon = {
   icon: <FontAwesomeIcon icon={faUser} />,
@@ -33,20 +34,21 @@ const partyIcon = {
   icon: <FontAwesomeIcon icon={faGlassCheers} />,
   iconStyle: { background: 'grey', color: '#fff' },
 };
-export const Timeline = () => {
-  const getIcon = (event: Event) => {
-    switch (event.type) {
-      case 'TALK':
-        return talkIcon;
-      case 'PERFORMANCE':
-        return performanceIcon;
-      case 'DISCUSSION':
-        return discusionIcon;
-      default:
-        return partyIcon;
-    }
-  };
 
+const getIcon = (eventType: EventType) => {
+  switch (eventType) {
+    case 'TALK':
+      return talkIcon;
+    case 'PERFORMANCE':
+      return performanceIcon;
+    case 'DISCUSSION':
+      return discusionIcon;
+    default:
+      return partyIcon;
+  }
+};
+
+export const Timeline = () => {
   return (
     <div className="App p-5 bg-grey">
       <h1 className="text-3xl font-bold p-2">
@@ -54,19 +56,19 @@ export const Timeline = () => {
         TEDx Trenčín - tu bude názov podujatia{' '}
       </h1>
       <VerticalTimeline>
-        {data.map((item, index) => {
+        {data.map((item) => {
           const contentStyle = item.active
             ? { background: '#E62B1E', color: 'black' }
             : undefined;
           return (
             <VerticalTimelineElement
-              key={index}
+              key={item.id}
               contentStyle={contentStyle}
-              date={item.startTime && item.startTime.toLocaleString()}
+              date={item.startTime && item.startTime.toLocaleString('sk')}
               dateClassName="text-left"
               visible={true}
-              icon={getIcon(item).icon}
-              iconStyle={getIcon(item).iconStyle}
+              icon={getIcon(item.type).icon}
+              iconStyle={getIcon(item.type).iconStyle}
             >
               {item.title && <EventCard event={item} />}
             </VerticalTimelineElement>
