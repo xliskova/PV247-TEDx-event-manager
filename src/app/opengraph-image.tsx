@@ -14,7 +14,7 @@ export const size = {
 export const contentType = 'image/png';
 
 // Image generation
-export default async function OpenGraphImage2({
+export default async function OpenGraphImage({
   params,
 }: {
   // read [repository] route slug

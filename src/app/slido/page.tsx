@@ -1,3 +1,8 @@
+import {Metadata} from "next";
+
+export const metadata: Metadata = {
+    title: 'Slido',
+};
 const Slido = () => {
   return (
     <div className="h-screen">
