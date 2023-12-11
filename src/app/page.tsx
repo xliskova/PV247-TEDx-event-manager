@@ -2,6 +2,11 @@
 
 import { Timeline } from '@/components/Timeline';
 import { useEvents, } from './api/api';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Program | TEDxTrenčín',
+};
 
 export default function Home() {
 

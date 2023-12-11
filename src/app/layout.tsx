@@ -1,17 +1,19 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.css';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { PropsWithChildren } from 'react';
-import { SessionProvider } from 'next-auth/react';
 import { Providers } from './Providers';
+import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'TEDx',
-  description: 'Event manager app',
+  title: {
+    template: '%s | TEDxTrenčín',
+    default: 'TEDxTrenčín',
+  },
+  description: 'TEDx Trenčín event manager app',
+  metadataBase: new URL(process.env.DEPLOY_URL ?? 'http://localhost:3000'),
 };
 
 export default function RootLayout({
@@ -22,13 +24,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-      <Providers>
-        <header>
-          <Navbar/>
-        </header>
-        {children}
-      </Providers>
-      <Footer/>
+        <Providers>
+          <header>
+            <Navbar />
+          </header>
+          {children}
+        </Providers>
+        <Footer />
       </body>
     </html>
   );

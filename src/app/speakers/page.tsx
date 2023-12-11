@@ -2,6 +2,13 @@
 
 import { DetailInformation } from '@/components/DetailInformation';
 import { useSpeakers } from '../api/api';
+import { data } from '@/data';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Rečníci',
+};
+
 const DetailInformationPage = () => {
 
   const {data, isLoading} = useSpeakers();
