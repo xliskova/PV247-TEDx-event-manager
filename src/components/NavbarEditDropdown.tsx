@@ -19,7 +19,7 @@ const NavbarEditDropdown = () => {
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        className="text-2xl font-semibold tracking-tight cursor-pointer border-2 border-red px-3 py-2 rounded-md"
+        className="md:text-2xl font-semibold tracking-tight cursor-pointer border-2 border-red px-3 py-2 rounded-md"
         onClick={handleClick}
       >
         Upraviť
