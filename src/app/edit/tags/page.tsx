@@ -45,8 +45,8 @@ const EditTagsPage = () => {
         variant="outlined"
         color="inherit"
         onClick={() => {
-          setModalOpen(true);
           setRowToEdit(null);
+          setModalOpen(true);
         }}
       >
         Nový tag

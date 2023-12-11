@@ -21,7 +21,7 @@ const MapDbEventToEventGetDto = (event : EventWithTags) : EventGetDto => {
         endTime: event.endTime,
         speakerId: event.speakerId!!,
         // blockId: event.blockId,
-         tags: event.tags.map(e => MapDbTagToTagGetDto(e))
+        tags: event.tags.map(e => MapDbTagToTagGetDto(e))
     }
 };
 

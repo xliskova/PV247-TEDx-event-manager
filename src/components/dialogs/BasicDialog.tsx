@@ -1,12 +1,12 @@
 import { Tag } from "@prisma/client";
-import { ReactNode } from "react";
-import { FieldValues, UseFormRegister, useForm } from "react-hook-form";
+import {ReactNode, useEffect} from "react";
+import {FieldValues, UseFormRegister, useForm, UseFormReturn} from "react-hook-form";
 
 
 type DialogField = {
     key: string,
     title: ReactNode,
-    input: (register: UseFormRegister<FieldValues>) => ReactNode
+    input: (form: UseFormReturn<FieldValues, any, undefined>) => ReactNode
 }
 
 type BasicDialogProps<T> = {
@@ -18,9 +18,10 @@ type BasicDialogProps<T> = {
 };
 
 export const BasicDialog = <T,>({ value, onSubmit, close, isOpen, getFields }: BasicDialogProps<T>) => {
-    const { register, handleSubmit, formState, reset, setValue } = useForm();
+    const form = useForm()
+    const { handleSubmit, reset, setValue } = form;
     if (value) {
-      setValue('value', value)
+        setValue('value', value)
     }
 
     if (!isOpen) {
@@ -39,14 +40,18 @@ export const BasicDialog = <T,>({ value, onSubmit, close, isOpen, getFields }: B
                         <label htmlFor={field.key} className="block text-gray-700 text-sm font-bold mb-2">
                             {field.title}
                         </label>
-                        {field.input(register)}
+                        {field.input(form)}
                     </div>
                 ))}
                 <div>
                 <button
                         type="button"
                         className="m-4 py-2 px-4 hover:bg-grey border rounded"
-                        onClick={() => close()}
+                        onClick={() => {
+                            reset();
+                            setValue('value', undefined)
+                            close();
+                        }}
                     >
                         Zavřít
                     </button>

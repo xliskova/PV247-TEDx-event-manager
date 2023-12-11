@@ -4,6 +4,10 @@ import { Event } from "@/model/Event";
 import { useSpeakers, useTags } from "@/app/api/api";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import { useState } from "react";
+import { format } from 'date-fns';
+import {DateTimePicker} from "@mui/x-date-pickers";
+import {Controller} from "react-hook-form";
 
 
 
@@ -15,8 +19,9 @@ type EventDialogProps = {
 };
 
 export const EventDialog = ({ event, onSubmit, close, isOpen }: EventDialogProps) => {
-    const { data: speakers, isLoading: isSpeakersLoading } = useSpeakers()
-    const { data: tags, isLoading: isTagsLoading } = useTags()
+    const { data: speakers, isLoading: isSpeakersLoading } = useSpeakers();
+    const { data: tags, isLoading: isTagsLoading } = useTags();
+    const [selectedTags, setSelectedTags] = useState<number[]>([])
 
     if (isSpeakersLoading || isTagsLoading) return (<div>Loading...</div>);
 
@@ -26,29 +31,29 @@ export const EventDialog = ({ event, onSubmit, close, isOpen }: EventDialogProps
             {
                 key: 'title',
                 title: 'Popisek',
-                input: (register) => <input
+                input: (form) => <input
                     type="text"
                     id="title"
-                    {...register('value.title', { required: 'Title is required' })}
+                    {...form.register('value.title', { required: 'Title is required' })}
                     className="w-full p-2 border rounded"
                 />
             },
             {
                 key: 'description',
                 title: 'Popis',
-                input: (register) => <input
+                input: (form) => <input
                     type="text"
                     id="description"
-                    {...register('value.description', { required: 'Description is required' })}
+                    {...form.register('value.description', { required: 'Description is required' })}
                     className="w-full p-2 border rounded"
                 />
             },
             {
                 key: 'eventType',
                 title: 'Typ události',
-                input: (register) => <select
+                input: (form) => <select
                     id="eventType"
-                    {...register('value.eventType', { required: 'Event type is required' })}
+                    {...form.register('value.eventType', { required: 'Event type is required' })}
                     className="w-full p-2 border rounded"
                 >
                     {[EventType.DISCUSSION, EventType.PERFORMANCE, EventType.TALK, EventType.OTHER].map((eventType) => (
@@ -59,27 +64,44 @@ export const EventDialog = ({ event, onSubmit, close, isOpen }: EventDialogProps
             {
                 key: 'startTime',
                 title: 'Začátek',
-                input: (register) => <input
-                    type="datetime-local"
-                    {...register('value.startTime', { required: 'Start time is required' })}
-                    className="w-full p-2 border rounded"
+                input: (form) => <Controller
+                    control={form.control}
+                    name="value.startTime"
+                    render={({
+                                 field: { onChange, value, ref},
+                             }) => (
+                        <DateTimePicker
+                            value={value}
+                            onChange={onChange} // send value to hook form
+                            inputRef={ref}
+                        />
+                    )}
                 />
             },
             {
                 key: 'endTime',
                 title: 'Konec',
-                input: (register) => <input
-                    type="datetime-local"
-                    {...register('value.endTime', { required: 'End time is required' })}
-                    className="w-full p-2 border rounded"
+                input: (form) => <Controller
+                    control={form.control}
+                    name="value.endTime"
+                    render={({
+                                 field: { onChange, value, ref},
+                             }) => (
+                        <DateTimePicker
+                            value={value}
+                            onChange={onChange} // send value to hook form
+                            inputRef={ref}
+                        />
+                    )}
                 />
             },
             {
                 key: 'speakerId',
                 title: 'Řečník',
-                input: (register) => <Select
+                input: (form) => <Select
                     id="speakerId"
-                    {...register('value.speakerId', { required: 'Event type is required' })}
+                    defaultValue={event?.speakerId}
+                    {...form.register('value.speakerId', { required: 'Speaker is required' })}
                     className="w-full p-2 border rounded"
                 >
                     {speakers?.map((speaker) => (
@@ -87,24 +109,26 @@ export const EventDialog = ({ event, onSubmit, close, isOpen }: EventDialogProps
                     ))}
                 </Select>
             },
-            /*{
+            {
                 key: 'tags',
                 title: 'Tagy',
-                input: (register) => <Select
+                input: (form) => <Select
                     multiple={true}
-                    id="tags"
-                    defaultValue={[]}
-                    value={event?.tags ?? []}
-                    inputProps={register('value.tags')}
+                    id="tagIds"
+                    defaultValue={event?.tags?.map(tag => tag.id) ?? []}
+                    onChange={(event) => {
+                        setSelectedTags(event.target.value as number[])
+                    }}
+                    inputProps={form.register('tagIds')}
                     className="w-full p-2 border rounded"
                 >
                     {tags?.map((tag) => (
                         <MenuItem key={tag.id} value={tag.id}>{tag.title}</MenuItem>
                     ))}
                 </Select>
-            }*/
+            }
         ]}
-        onSubmit={onSubmit}
+        onSubmit={(e) => onSubmit({...e, tags: selectedTags.map((tagId: number) => tags?.find(tag => tag.id === tagId)!!)})}
         close={close}
         isOpen={isOpen}
     />

@@ -23,7 +23,7 @@ const EditEventsPage = () => {
     );
   };
 
-  const handleEditRow = (index: number) => {
+  const handleEditRow = (index: number | null) => {
     setRowToEdit(index);
     setModalOpen(true);
   };
@@ -48,11 +48,10 @@ const EditEventsPage = () => {
         color="inherit"
         className="text-dark-grey m-5"
         onClick={() => {
-          setModalOpen(true)
-          setRowToEdit(null)
+          handleEditRow(null)
         }}
       >
-        Nový tag
+        Nová událost
       </Button>
     </div>
   );

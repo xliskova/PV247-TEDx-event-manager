@@ -2,6 +2,7 @@ import { Tag } from '@prisma/client';
 import { BasicDialog } from './BasicDialog';
 import { MuiColorInput } from 'mui-color-input';
 import React from 'react';
+import {Controller} from "react-hook-form";
 
 type TagDialogProps = {
   tag: Tag | undefined;
@@ -11,11 +12,6 @@ type TagDialogProps = {
 };
 
 export const TagDialog = ({ tag, onSubmit, close, isOpen }: TagDialogProps) => {
-  const [color, setColor] = React.useState(tag?.color ?? '#ffffff');
-  const handleChange = (newColor: string) => {
-    setColor(newColor);
-  };
-
   return (
     <BasicDialog
       value={tag}
@@ -23,11 +19,11 @@ export const TagDialog = ({ tag, onSubmit, close, isOpen }: TagDialogProps) => {
         {
           key: 'title',
           title: 'Název',
-          input: (register) => (
+          input: (form) => (
             <input
               type="text"
               id="title"
-              {...register('value.title', { required: 'Title is required' })}
+              {...form.register('value.title', { required: 'Title is required' })}
               className="w-full p-2 border rounded"
             />
           ),
@@ -35,14 +31,20 @@ export const TagDialog = ({ tag, onSubmit, close, isOpen }: TagDialogProps) => {
         {
           key: 'color',
           title: 'Barva',
-          input: (register) => (
-            <MuiColorInput
-              id="color"
-              value={color}
-              fallbackValue={tag?.color}
-              {...register('value.color', { required: 'Color is required' })}
-              onChange={handleChange}
-            />
+          input: (form) => (
+              <Controller
+                  control={form.control}
+                  name="value.color"
+                  render={({
+                             field: { onChange, value, ref},
+                           }) => (
+                      <MuiColorInput
+                          value={value}
+                          onChange={onChange} // send value to hook form
+                          inputRef={ref}
+                      />
+                  )}
+              />
           ),
         },
       ]}

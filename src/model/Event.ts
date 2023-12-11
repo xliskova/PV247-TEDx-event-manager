@@ -4,12 +4,11 @@ import { Speaker } from './Speaker';
 
 export type Event = {
   id: number;
-  type: EventType;
+  eventType: EventType;
   title?: string;
-  speaker?: Speaker;
+  speakerId?: number;
   description?: string;
   tags?: Tag[];
   startTime?: Date;
   endTime?: Date;
-  active?: boolean;
 };

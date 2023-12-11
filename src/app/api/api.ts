@@ -2,6 +2,8 @@ import { Speaker } from "@/model/Speaker";
 import { Event } from "@/model/Event";
 import { Tag } from "@prisma/client";
 import { useQuery } from "react-query";
+import { EventGetDto } from "@/server/dto/EventDto";
+import { EventType } from "@/eventType";
 
 const baseUrl = "http://localhost:3000/api/auth";
 
@@ -12,10 +14,9 @@ const deleteEntity = async (entity: string, id: number, onSuccess: () => void) =
     onSuccess();
 };
 
-const useEntity = <T>(entity: string, validate: (arg: Response) => void) => useQuery(entity, async () => {
+const useEntity = <T>(entity: string, parse: (arg: Response) => Promise<T[]>) => useQuery(entity, async () => {
     const res = await fetch(`${baseUrl}/${entity}`);
-    validate(res)
-    return res.json() as Promise<T[]>;
+    return parse(res)
 });
 
 const updateEntity = async(entity: string, id: number, data: any) => {
@@ -42,6 +43,7 @@ const createEntity = async (entity: string, data: any) => {
 
 const useTags = () => useEntity<Tag>('tags', (res) => {
     // todo validate
+    return res.json() as Promise<Tag[]>;
 });
 
 const deleteTag = (id: number, onSuccess: () => void) => deleteEntity('tags', id, onSuccess);
@@ -57,6 +59,7 @@ const saveTag = async (tag: Tag, onSuccess: () => void) => {
 
 const useSpeakers = () => useEntity<Speaker>('speakers', (res) => {
     // todo validate
+    return res.json() as Promise<Speaker[]>;
 });
 
 const deleteSpeaker = (id: number, onSuccess: () => void) => deleteEntity('speakers', id, onSuccess);
@@ -83,8 +86,22 @@ const saveSpeaker = async (speaker: Speaker, image: File, onSuccess: () => void)
     onSuccess();
 };
 
-const useEvents = () => useEntity<Event>('events', (res) => {
+const useEvents = () => useEntity<Event>('events', async (res) => {
     // todo validate
+    const eventDtos = await (res.json() as Promise<EventGetDto[]>);
+    return eventDtos.map(e => {
+        return {
+            id: e.id,
+            eventType: EventType.DISCUSSION,
+            title: e.title,
+            speakerId: e.speakerId,
+            description: e.description,
+            tagsIds: e.tags?.map(t => t.id),   
+            startTime: new Date(e.startTime),
+            endTime: new Date(e.endTime),
+            tags: e.tags
+        }
+    });
 });
 
 const deleteEvent = (id: number, onSuccess: () => void) => deleteEntity('events', id, onSuccess);

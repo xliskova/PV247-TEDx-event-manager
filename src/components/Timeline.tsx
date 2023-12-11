@@ -16,6 +16,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { EventCard } from '@/components/EventCard';
 import { EventType } from '@/eventType';
+import { Speaker } from '@/model/Speaker';
 
 const talkIcon = {
   icon: <FontAwesomeIcon icon={faUser} />,
@@ -47,11 +48,22 @@ const getIcon = (eventType: EventType) => {
   }
 };
 
+const isActive = (event: Event) => {
+  const now = new Date();
+  return (
+    event.startTime &&
+    event.endTime &&
+    new Date(event.startTime) < now &&
+    new Date(event.endTime) > now
+  );
+}
+
 type TimelineProps = {
-  events: Event[] | undefined;
+  events: Event[];
+  speakers: Speaker[];
 };
 
-export const Timeline = ({events}: TimelineProps) => {
+export const Timeline = ({events, speakers}: TimelineProps) => {
   return (
     <div className="App p-5 bg-grey">
       <h1 className="text-3xl font-bold p-2">
@@ -60,7 +72,7 @@ export const Timeline = ({events}: TimelineProps) => {
       </h1>
       <VerticalTimeline>
         {events?.map((item) => {
-          const contentStyle = item.active
+          const contentStyle = isActive(item) 
             ? { background: '#E62B1E', color: 'black' }
             : undefined;
           return (
@@ -70,10 +82,10 @@ export const Timeline = ({events}: TimelineProps) => {
               date={item.startTime && format(new Date(item.startTime), 'dd.MM HH:mm')}
               dateClassName="text-left"
               visible={true}
-              icon={getIcon(item.type).icon}
-              iconStyle={getIcon(item.type).iconStyle}
+              icon={getIcon(item.eventType).icon}
+              iconStyle={getIcon(item.eventType).iconStyle}
             >
-              {item.title && <EventCard event={item} />}
+              {item.title && <EventCard event={item} speaker={speakers!!.find(speaker => speaker.id == item.speakerId)!!} />}
             </VerticalTimelineElement>
           );
         })}

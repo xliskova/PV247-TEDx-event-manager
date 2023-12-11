@@ -24,32 +24,32 @@ export const SpeakerDialog = ({ speaker, onSubmit, close, isOpen }: SpeakerDialo
         {
             key: 'name',
             title: 'Jméno',
-            input: (register) => <input
+            input: (form) => <input
                 type="text"
                 id="name"
-                {...register('value.name', { required: 'Name is required' })}
+                {...form.register('value.name', { required: 'Name is required' })}
                 className="w-full p-2 border rounded"
             />
         },
         {
             key: 'description',
             title: 'Popis',
-            input: (register) => <input
+            input: (form) => <input
                 type="text"
                 id="description"
-                {...register('value.description', { required: 'Description is required' })}
+                {...form.register('value.description', { required: 'Description is required' })}
                 className="w-full p-2 border rounded"
             />
         },
         {
             key: 'url',
             title: 'Profilový obrázek',
-            input: (register) =>
+            input: (form) =>
             <div>
                 <input
                 type="file"
                 id="url"
-                {...register('value.url')}
+                {...form.register('value.url')}
                 onChange={handleFileChange}
                 className="w-full p-2 border rounded"
             />
