@@ -87,16 +87,14 @@ const saveSpeaker = async (speaker: Speaker, image: File, onSuccess: () => void)
 };
 
 const useEvents = () => useEntity<Event>('events', async (res) => {
-    // todo validate
     const eventDtos = await (res.json() as Promise<EventGetDto[]>);
     return eventDtos.map(e => {
         return {
             id: e.id,
-            eventType: EventType.DISCUSSION,
+            eventType: e.eventType as EventType,
             title: e.title,
             speakerId: e.speakerId,
             description: e.description,
-            tagsIds: e.tags?.map(t => t.id),   
             startTime: new Date(e.startTime),
             endTime: new Date(e.endTime),
             tags: e.tags
