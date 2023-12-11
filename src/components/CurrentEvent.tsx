@@ -1,8 +1,4 @@
-'use client';
-
-import { useEvents } from '@/app/api/api';
 import { Event } from '@/model/Event';
-import { useEffect, useState } from 'react';
 
 const formatCountdown = (t: number) => {
   const days = Math.floor(t / (1000 * 60 * 60 * 24));

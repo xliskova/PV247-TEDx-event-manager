@@ -1,30 +1,28 @@
-"use client";
-
 import { DetailInformation } from '@/components/DetailInformation';
-import { useSpeakers } from '@/app/api/api'
+import { GetSpeakers } from '@/server/services/SpeakerService';
+import { Suspense } from 'react';
 
-const ListOfDetailInformationPage = () => {
+const ListOfDetailInformationPage = async () => {
+  const { data } = await GetSpeakers();
 
-    const {data, isLoading} = useSpeakers();
-
-    if (isLoading) return (<h1>Loading...</h1>)
-
-    return (
-        <div className="bg-grey pb-5">
-            <div className="lg:mx-16">
-                <h1 className="text-center p-10">REČNÍCI</h1>
-                {data?.map((speaker, index) => (
-                    <div key={speaker.id}>
-                        <DetailInformation
-                            className={
-                                index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'
-                            }
-                            speaker={speaker}
-                        />
-                    </div>
-                ))}
+  return (
+    <div className="bg-grey pb-5">
+      <div className="lg:mx-16">
+        <h1 className="text-center p-10">REČNÍCI</h1>
+        <Suspense fallback={<p>Loading...</p>}>
+          {data?.map((speaker, index) => (
+            <div key={speaker.id}>
+              <DetailInformation
+                className={
+                  index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'
+                }
+                speaker={speaker}
+              />
             </div>
-        </div>
-    );
+          ))}
+        </Suspense>
+      </div>
+    </div>
+  );
 };
 export default ListOfDetailInformationPage;

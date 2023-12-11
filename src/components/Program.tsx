@@ -4,7 +4,7 @@ import { Timeline } from '@/components/Timeline';
 import { useEvents, useSpeakers } from '@/app/api/api';
 import CurrentEvent from './CurrentEvent';
 import { Event } from '@/model/Event';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 const getCurrentEvents = (events: Event[]) => {
   const now = new Date().getTime();
@@ -40,17 +40,14 @@ const Program = () => {
 
   events?.sort((a, b) => a.startTime.getTime() - b.startTime.getTime());
 
-  if (isLoadingEvents || isLoadingSpeakers) return <h1>Loading...</h1>;
-
-  if (!speakers || !events) return <h1>Unable to fetch data...</h1>;
-
   return (
     <>
+      {isLoadingEvents && <p>Loading...</p>}
       <CurrentEvent currentEvents={currentEvents} nextEvent={nextEvent} />
       <Timeline
-        events={events}
+        events={events ?? []}
         currentEvents={currentEvents}
-        speakers={speakers}
+        speakers={speakers ?? []}
       />
     </>
   );

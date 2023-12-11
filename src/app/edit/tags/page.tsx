@@ -34,8 +34,8 @@ const EditTagsPage = () => {
           await saveTag(tag, () => queryClient.invalidateQueries('tags'));
         }}
         close={() => {
-            setModalOpen(false)
-            setRowToEdit(null)
+          setModalOpen(false);
+          setRowToEdit(null);
         }}
         isOpen={modalOpen}
       />

@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import { Event } from '@/model/Event';
 import { format } from 'date-fns';
@@ -61,13 +60,11 @@ export const Timeline = ({
 }: TimelineProps) => {
   return (
     <div className="App p-5 bg-grey">
-      <h1 className="text-3xl font-bold p-2">
-        {' '}
-        TEDx Trenčín - tu bude názov podujatia{' '}
-      </h1>
+      <h1 className="text-3xl font-bold p-2"> TEDx Trenčín</h1>
       <VerticalTimeline>
         {events?.map((item) => {
-          const contentStyle = currentEvents.includes(item)
+          const isActive = currentEvents.includes(item);
+          const contentStyle = isActive
             ? { background: '#E62B1E', color: 'black' }
             : undefined;
           return (
@@ -89,6 +86,7 @@ export const Timeline = ({
                   speaker={
                     speakers!!.find((speaker) => speaker.id == item.speakerId)!!
                   }
+                  isActive={isActive}
                 />
               )}
             </VerticalTimelineElement>
