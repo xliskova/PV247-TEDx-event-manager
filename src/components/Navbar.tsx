@@ -31,6 +31,9 @@ export const Navbar = () => {
               Rečníci
             </span>
           </Link>
+          <Link className="mr-6 flex flex-shrink-0 items-center" href="/slido">
+              <span className="text-xl font-semibold tracking-tight">Slido</span>
+          </Link>
         </li>
 
         {status === 'authenticated' && (
