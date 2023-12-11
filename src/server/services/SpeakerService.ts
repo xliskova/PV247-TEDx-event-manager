@@ -65,7 +65,7 @@ export const CreateSpeaker = async (speakerCreateDto : SpeakerCreateDto) : Promi
     }
 }
 
-export const UploadImage = async (image: Blob) : Promise<ServiceResponse<ImageDto>>=> {
+export const UploadImage = async (image: Blob) : Promise<ServiceResponse<ImageDto>> => {
     const formData = new FormData();
     formData.append("file", image);
     formData.append("upload_preset", "ewepdtcz");
