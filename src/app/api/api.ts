@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { EventGetDto } from "@/server/dto/EventDto";
 import { EventType } from "@/eventType";
 
-const baseUrl = "http://localhost:3000/api/auth";
+const baseUrl = "/api/auth";
 
 const deleteEntity = async (entity: string, id: number, onSuccess: () => void) => {
     await fetch(`${baseUrl}/${entity}/${id}`, {
