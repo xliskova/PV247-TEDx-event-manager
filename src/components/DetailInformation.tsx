@@ -1,13 +1,16 @@
-import tedxImage from '@/images/tedxImage1.jpg';
-import { Speaker } from '@/model/Speaker';
+'use client';
+import { SpeakerGetDto } from '@/server/dto/SpeakerDto';
 import { CldImage } from 'next-cloudinary';
 
 interface DetailInformationProps {
   className?: string;
-  speaker: Speaker;
+  speaker: SpeakerGetDto;
 }
 
-export const DetailInformation = ({ className, speaker }: DetailInformationProps) => {
+export const DetailInformation = ({
+  className,
+  speaker,
+}: DetailInformationProps) => {
   return (
     <div
       className={`flex lg:flex-row flex-col lg:p-16 mb-8 rounded-2xl shadow-md bg-white ${className}`}
@@ -25,9 +28,7 @@ export const DetailInformation = ({ className, speaker }: DetailInformationProps
           <h1>{speaker.name}</h1>
         </div>
         <h2 className="pt-10">Popis řečníka:</h2>
-        <span>
-          {speaker.description}
-        </span>
+        <span>{speaker.description}</span>
       </div>
     </div>
   );

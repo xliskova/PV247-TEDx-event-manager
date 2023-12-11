@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import ListOfDetailInformationPage from '@/components/ListOfDetailInformation';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Rečníci',
