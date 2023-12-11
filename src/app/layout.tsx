@@ -14,6 +14,21 @@ export const metadata: Metadata = {
   },
   description: 'TEDxTrenčín poskytuje platformu pre zaujimavých a inšpiratívnych ľudí, ktorých myšlienky, nápady a činy sú hodné zdieľania.',
   metadataBase: new URL(process.env.DEPLOY_URL ?? 'http://localhost:3000'),
+  openGraph: {
+    title: "TEDxTrenčín",
+    url: "https://pv-247-te-dx-event-manager.vercel.app/",
+    description: 'TEDxTrenčín poskytuje platformu pre zaujimavých a inšpiratívnych ľudí, ktorých myšlienky, nápady a činy sú hodné zdieľania.',
+    type: "website",
+    images: [
+      {
+        url: "https://www.tedxtrencin.sk/images/facebook.jpg",
+        type: "image/jpg",
+        width: 1200,
+        height: 630,
+        alt: "EMM",
+      },
+    ],
+  },
   twitter: {
     card: "summary_large_image",
     title: "TEDxTrenčín",
