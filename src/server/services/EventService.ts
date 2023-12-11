@@ -9,7 +9,7 @@ import { Console } from "console";
 
 const UKNOWN_ERROR = { status: ServiceStatusCode.Error, errorMessage: "Unknown" };
 
-type EventWithTags = Event /* & { tags: Tag[] } */;
+type EventWithTags = Event & { tags: Tag[] };
 
 const MapDbEventToEventGetDto = (event : EventWithTags) : EventGetDto => {
     return {
@@ -19,9 +19,9 @@ const MapDbEventToEventGetDto = (event : EventWithTags) : EventGetDto => {
         eventType: EventType[event.eventType as keyof typeof EventType],
         startTime: event.startTime,
         endTime: event.endTime,
-        // speakerId: event.speakerId,
+        speakerId: event.speakerId!!,
         // blockId: event.blockId,
-        // tags: event.tags.map(e => MapDbTagToTagGetDto(e))
+         tags: event.tags.map(e => MapDbTagToTagGetDto(e))
     }
 };
 
@@ -36,8 +36,8 @@ const MapDbEventToEventDeletedDto = (event : Event) : EventDeletedDto => {
         eventType: EventType[event.eventType as keyof typeof EventType],
         startTime: event.startTime,
         endTime: event.endTime,
-        // speakerId: event.speakerId,
-        // blockId: event.blockId
+        speakerId: event.speakerId!!,
+        tags: [] //TODO: Fix this
     }
 };
 
@@ -87,13 +87,13 @@ export const CreateEvent = async (eventCreateDto : EventCreateDto) : Promise<Ser
                 eventType: eventCreateDto.eventType,
                 startTime: eventCreateDto.startTime,
                 endTime: eventCreateDto.endTime,
-                // speakerId: eventCreateDto.speakerId,
+                speakerId: eventCreateDto.speakerId,
                 // blockId: eventCreateDto.blockId,
-                // tags: {
-                //     connect: eventCreateDto.tags
-                // }
+                tags: {
+                    connect: eventCreateDto.tags
+                }
             },
-            // include: { tags: true }
+            include: { tags: true }
         });
         return { status: ServiceStatusCode.Ok, data: MapDbEventToEventCreatedDto(createdEvent)};    
     } catch (e) {
@@ -116,13 +116,13 @@ export const UpdateEvent = async (eventUpdateDto : EventUpdateDto) : Promise<Ser
                 eventType: eventUpdateDto.eventType,
                 startTime: eventUpdateDto.startTime,
                 endTime: eventUpdateDto.endTime,
-                // speakerId: eventUpdateDto.speakerId,
+                speakerId: eventUpdateDto.speakerId,
                 // blockId: eventUpdateDto.blockId,
-                // tags: {
+                tags: {
                 //     connect: eventUpdateDto.tags
-                // }
+                }
             },
-            // include: { tags: true }
+            include: { tags: true }
         });
         return {status: ServiceStatusCode.Ok, data: MapDbEventToEventUpdateDto(updatedEvent)}
     } catch (e) {

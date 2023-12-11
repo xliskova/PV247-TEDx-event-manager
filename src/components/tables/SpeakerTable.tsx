@@ -1,8 +1,8 @@
 import Chip from '@mui/material/Chip';
-import { Speaker } from '@prisma/client';
 import { BasicTable } from './BasicTable';
 import { CldImage } from 'next-cloudinary';
 import { width } from '@fortawesome/free-solid-svg-icons/fa0';
+import { Speaker } from '@/model/Speaker';
 
 type TagTableProps = {
   deleteRow: (idToBeDeleted: number) => void;
@@ -36,8 +36,8 @@ export const SpeakerTable = ({
             <CldImage
               alt={speaker.name}
               src={speaker.url ?? ''}
-              width="50"
-              height="50"
+              width="30"
+              height="0"
             />
           ),
         },

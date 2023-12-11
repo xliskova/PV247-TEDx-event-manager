@@ -1,7 +1,6 @@
-import { Event } from "@prisma/client";
-import { useForm } from "react-hook-form";
 import { BasicDialog } from "./BasicDialog";
 import { EventType } from "@/eventType";
+import { Event } from "@/model/Event";
 import { useSpeakers, useTags } from "@/app/api/api";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -23,7 +22,7 @@ export const EventDialog = ({ event, onSubmit, close, isOpen }: EventDialogProps
 
     return (<BasicDialog
         value={event}
-        fields={[
+        getFields={(event) => [
             {
                 key: 'title',
                 title: 'Popisek',
@@ -91,11 +90,11 @@ export const EventDialog = ({ event, onSubmit, close, isOpen }: EventDialogProps
             /*{
                 key: 'tags',
                 title: 'Tagy',
-                input: (register, value) => <Select
+                input: (register) => <Select
                     multiple={true}
                     id="tags"
                     defaultValue={[]}
-                    value={value?.tags ?? []}
+                    value={event?.tags ?? []}
                     inputProps={register('value.tags')}
                     className="w-full p-2 border rounded"
                 >

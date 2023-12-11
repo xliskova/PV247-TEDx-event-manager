@@ -20,7 +20,7 @@ export const SpeakerDialog = ({ speaker, onSubmit, close, isOpen }: SpeakerDialo
     };
     return (<BasicDialog 
     value={speaker} 
-    fields={[
+    getFields={(speaker) => [
         {
             key: 'name',
             title: 'Jméno',
@@ -43,14 +43,13 @@ export const SpeakerDialog = ({ speaker, onSubmit, close, isOpen }: SpeakerDialo
         },
         {
             key: 'url',
-            title: 'URL adresa obrázku',
-            input: (register, speaker) =>
+            title: 'Profilový obrázek',
+            input: (register) =>
             <div>
-                {speaker?.url ? <img src={speaker?.url} className="w-1/4"  /> : <></>}
                 <input
                 type="file"
                 id="url"
-                {...register('value.url', { required: 'Image is required' })}
+                {...register('value.url')}
                 onChange={handleFileChange}
                 className="w-full p-2 border rounded"
             />

@@ -1,4 +1,4 @@
-import { Event } from '@prisma/client';
+import { Event } from "@/model/Event";
 import { BasicTable } from './BasicTable';
 import { EventGetDto } from '@/server/dto/EventDto';
 
@@ -27,15 +27,15 @@ export const EventTable = ({ deleteRow, editRow, events }: EventTableProps) => {
           },
           {
             name: 'Typ události',
-            valueFn: (event) => event.eventType
+            valueFn: (event) => event.type.toString()
           },
           {
             name: 'Začátek',
-            valueFn: (event) => event.startTime.toString()
+            valueFn: (event) => event.startTime?.toString()
           },
           {
             name: 'Konec',
-            valueFn: (event) => event.endTime.toString()
+            valueFn: (event) => event.endTime?.toString()
           }
         ]
       }

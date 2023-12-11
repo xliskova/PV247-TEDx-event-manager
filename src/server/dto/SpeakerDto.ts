@@ -1,7 +1,7 @@
 import { SpeakerBasicSchema } from "@/schemas/SpeakerSchemas";
 import { z } from "zod";
 
-export const SpeakerUpdateSchema = SpeakerBasicSchema.extend({image: z.any()});
+export const SpeakerUpdateSchema = SpeakerBasicSchema.extend({image: z.any().nullable()});
 export const SpeakerCreateSchema = SpeakerUpdateSchema.omit({id: true});
 const SpeakerGetSchema = SpeakerBasicSchema.extend({url: z.string().nullable()})
 

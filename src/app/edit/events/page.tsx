@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
+import { Event } from "@/model/Event";
 import { Button } from '@mui/material';
-import { Event } from '@prisma/client';
 import { useQueryClient } from 'react-query';
 import { deleteEvent, saveEvent, useEvents } from '@/app/api/api';
 import { EventDialog } from '@/components/dialogs/EventDialog';

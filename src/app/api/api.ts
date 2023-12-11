@@ -1,5 +1,6 @@
 import { Speaker } from "@/model/Speaker";
-import { Tag, Event } from "@prisma/client";
+import { Event } from "@/model/Event";
+import { Tag } from "@prisma/client";
 import { useQuery } from "react-query";
 
 const baseUrl = "http://localhost:3000/api/auth";
@@ -65,7 +66,9 @@ const saveSpeaker = async (speaker: Speaker, image: File, onSuccess: () => void)
     const formData = new FormData();
     formData.append('name', speaker.name);
     formData.append('description', speaker.description);
-    formData.append('image', image);
+    if (image) {
+        formData.append('image', image);
+    }
     if (speaker.id) {
         await fetch(`${baseUrl}/speakers/${speaker.id}`, {
             method: 'PUT',

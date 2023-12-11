@@ -1,8 +1,7 @@
 'use client';
 import React from 'react';
-import { data } from '@/data';
 import { Event } from '@/model/Event';
-
+import { format } from 'date-fns';
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -48,7 +47,11 @@ const getIcon = (eventType: EventType) => {
   }
 };
 
-export const Timeline = () => {
+type TimelineProps = {
+  events: Event[] | undefined;
+};
+
+export const Timeline = ({events}: TimelineProps) => {
   return (
     <div className="App p-5 bg-grey">
       <h1 className="text-3xl font-bold p-2">
@@ -56,7 +59,7 @@ export const Timeline = () => {
         TEDx Trenčín - tu bude názov podujatia{' '}
       </h1>
       <VerticalTimeline>
-        {data.map((item) => {
+        {events?.map((item) => {
           const contentStyle = item.active
             ? { background: '#E62B1E', color: 'black' }
             : undefined;
@@ -64,7 +67,7 @@ export const Timeline = () => {
             <VerticalTimelineElement
               key={item.id}
               contentStyle={contentStyle}
-              date={item.startTime && item.startTime.toLocaleString('sk')}
+              date={item.startTime && format(new Date(item.startTime), 'dd.MM HH:mm')}
               dateClassName="text-left"
               visible={true}
               icon={getIcon(item.type).icon}
