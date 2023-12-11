@@ -52,7 +52,8 @@ declare module 'next-auth' {
        *
        * @see https://next-auth.js.org/providers/github
        */
-    ]
+    ],
+    secret: process.env.SECRET
   };
   
   /**
@@ -61,4 +62,3 @@ declare module 'next-auth' {
    * @see https://next-auth.js.org/configuration/nextjs
    */
   export const getServerAuthSession = () => getServerSession(authOptions);
-  
