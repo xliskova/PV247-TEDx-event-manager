@@ -12,8 +12,22 @@ export const metadata: Metadata = {
     template: '%s | TEDxTrenčín',
     default: 'TEDxTrenčín',
   },
-  description: 'TEDx Trenčín event manager app',
+  description: 'TEDxTrenčín poskytuje platformu pre zaujimavých a inšpiratívnych ľudí, ktorých myšlienky, nápady a činy sú hodné zdieľania.',
   metadataBase: new URL(process.env.DEPLOY_URL ?? 'http://localhost:3000'),
+  twitter: {
+    card: "summary_large_image",
+    title: "TEDxTrenčín",
+    description: "TEDxTrenčín poskytuje platformu pre zaujimavých a inšpiratívnych ľudí, ktorých myšlienky, nápady a činy sú hodné zdieľania.",
+    images: [
+      {
+        url: "https://www.tedxtrencin.sk/images/facebook.jpg",
+        type: "image/jpg",
+        width: 1200,
+        height: 630,
+        alt: "EMM",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -23,15 +37,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Providers>
-          <header>
-            <Navbar />
-          </header>
-          {children}
-        </Providers>
-        <Footer />
-      </body>
+    <body className={inter.className}>
+    <Providers>
+      <header>
+        <Navbar/>
+      </header>
+      {children}
+    </Providers>
+    <Footer/>
+    </body>
     </html>
   );
 }
