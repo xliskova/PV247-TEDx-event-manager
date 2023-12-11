@@ -1,13 +1,11 @@
 'use client';
 import React, { useState } from 'react';
-import { TagTable } from '@/components/tables/TagTable';
 import { Button } from '@mui/material';
-import { Speaker, Tag } from '@prisma/client';
 import { useQuery, useQueryClient } from 'react-query';
-import { TagDialog } from '@/components/dialogs/TagDialog';
 import { deleteSpeaker, saveSpeaker, useSpeakers } from '@/app/api/api';
 import { SpeakerDialog } from '@/components/dialogs/SpeakerDialog';
 import { SpeakerTable } from '@/components/tables/SpeakerTable';
+import { Speaker } from '@/model/Speaker';
 
 const EditSpeakersPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -34,8 +32,10 @@ const EditSpeakersPage = () => {
     <div>
       <SpeakerDialog
         speaker={speakers?.find((it: Speaker) => it.id === rowToEdit)}
-        onSubmit={(speaker: Speaker) =>
-          saveSpeaker(speaker, () => queryClient.invalidateQueries('speakers'))
+        onSubmit={(speaker: Speaker, image: File) =>
+          {
+            saveSpeaker(speaker, image, () => queryClient.invalidateQueries('speakers'))
+          }
         }
         close={() => setModalOpen(false)}
         isOpen={modalOpen}
@@ -49,7 +49,10 @@ const EditSpeakersPage = () => {
         variant="outlined"
         color="inherit"
         className="text-dark-grey m-5"
-        onClick={() => setModalOpen(true)}
+        onClick={() => {
+          setRowToEdit(null)
+          setModalOpen(true)
+        }}
       >
         Nový tag
       </Button>

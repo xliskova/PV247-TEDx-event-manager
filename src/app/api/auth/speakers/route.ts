@@ -4,7 +4,14 @@ import { CreateSpeaker, GetSpeakers } from "@/server/services/SpeakerService";
 import { NextRequest } from "next/server";
 
 export const POST = async (req: NextRequest) => {
-    const speakerCreateDto = await SpeakerCreateSchema.safeParseAsync(await req.json());
+    const reqData = await req.formData();
+    const data = {
+        name: reqData.get("name"),
+        description: reqData.get("description"),
+        image: reqData.get("image")
+    }
+    
+    const speakerCreateDto = await SpeakerCreateSchema.safeParseAsync(data);
 
     if (speakerCreateDto.success) {
         const {status, errorMessage, data } = await CreateSpeaker(speakerCreateDto.data);
@@ -15,7 +22,7 @@ export const POST = async (req: NextRequest) => {
                 return new Response(errorMessage, {status: 500});
         }
     } else {
-        return new Response("Bad request", {status: 400});
+        return new Response("Bad request:" + speakerCreateDto.error, {status: 400});
     }
 };
 

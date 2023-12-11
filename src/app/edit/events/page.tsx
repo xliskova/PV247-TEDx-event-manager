@@ -47,7 +47,10 @@ const EditEventsPage = () => {
         variant="outlined"
         color="inherit"
         className="text-dark-grey m-5"
-        onClick={() => setModalOpen(true)}
+        onClick={() => {
+          setModalOpen(true)
+          setRowToEdit(null)
+        }}
       >
         Nový tag
       </Button>

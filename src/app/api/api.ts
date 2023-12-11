@@ -1,4 +1,5 @@
-import { Speaker, Tag, Event } from "@prisma/client";
+import { Speaker } from "@/model/Speaker";
+import { Tag, Event } from "@prisma/client";
 import { useQuery } from "react-query";
 
 const baseUrl = "http://localhost:3000/api/auth";
@@ -59,11 +60,22 @@ const useSpeakers = () => useEntity<Speaker>('speakers', (res) => {
 
 const deleteSpeaker = (id: number, onSuccess: () => void) => deleteEntity('speakers', id, onSuccess);
 
-const saveSpeaker = async (speaker: Speaker, onSuccess: () => void) => {
+const saveSpeaker = async (speaker: Speaker, image: File, onSuccess: () => void) => {
+    console.log(image)
+    const formData = new FormData();
+    formData.append('name', speaker.name);
+    formData.append('description', speaker.description);
+    formData.append('image', image);
     if (speaker.id) {
-        await updateEntity('speakers', speaker.id, speaker);
+        await fetch(`${baseUrl}/speakers/${speaker.id}`, {
+            method: 'PUT',
+            body: formData
+        });
     } else {
-        await createEntity('speakers', speaker);
+        await fetch(`${baseUrl}/speakers`, {
+            method: 'POST',
+            body: formData
+        });
     }
     onSuccess();
 };
