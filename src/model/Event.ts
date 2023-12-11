@@ -9,6 +9,6 @@ export type Event = {
   speakerId?: number;
   description?: string;
   tags?: Tag[];
-  startTime?: Date;
+  startTime: Date;
   endTime?: Date;
 };

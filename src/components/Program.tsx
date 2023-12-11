@@ -8,6 +8,8 @@ export default function Program() {
     const {data: events, isLoading: isLoadingEvents} = useEvents();
     const {data: speakers, isLoading: isLoadingSpeakers} = useSpeakers();
 
+    events?.sort((a, b) => a.startTime.getTime() - b.startTime.getTime())
+
     if (isLoadingEvents || isLoadingSpeakers) return (<h1>Loading...</h1>)
 
     if (!speakers || !events) return (<h1>Unable to fetch data...</h1>)

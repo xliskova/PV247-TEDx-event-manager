@@ -15,7 +15,6 @@ export const SpeakerDialog = ({ speaker, onSubmit, close, isOpen }: SpeakerDialo
     const [image, setImage] = useState<File | undefined>(undefined);
 
     const handleFileChange = (event: any) => {
-        console.log(event.target.files[0])
         setImage(event.target.files[0])
     };
     return (<BasicDialog 
