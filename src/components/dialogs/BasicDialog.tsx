@@ -11,13 +11,13 @@ type DialogField = {
 
 type BasicDialogProps<T> = {
     value: T | undefined,
-    fields: DialogField[],
+    getFields: (value: T | undefined) => DialogField[],
     onSubmit: (value: T) => void,
     close: () => void,
     isOpen: boolean,
 };
 
-export const BasicDialog = <T,>({ value, onSubmit, close, isOpen, fields }: BasicDialogProps<T>) => {
+export const BasicDialog = <T,>({ value, onSubmit, close, isOpen, getFields }: BasicDialogProps<T>) => {
     const { register, handleSubmit, formState, reset, setValue } = useForm();
     if (value) {
       setValue('value', value)
@@ -34,7 +34,7 @@ export const BasicDialog = <T,>({ value, onSubmit, close, isOpen, fields }: Basi
                 reset();
                 close();
             })}>
-                {fields.map((field: DialogField) => (
+                {getFields(value).map((field: DialogField) => (
                     <div className="mb-4" key={field.key}>
                         <label htmlFor={field.key} className="block text-gray-700 text-sm font-bold mb-2">
                             {field.title}

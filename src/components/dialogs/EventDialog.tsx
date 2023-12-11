@@ -1,7 +1,9 @@
-import { Event } from "@prisma/client";
-import { useForm } from "react-hook-form";
 import { BasicDialog } from "./BasicDialog";
 import { EventType } from "@/eventType";
+import { Event } from "@/model/Event";
+import { useSpeakers, useTags } from "@/app/api/api";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 
 
@@ -13,9 +15,14 @@ type EventDialogProps = {
 };
 
 export const EventDialog = ({ event, onSubmit, close, isOpen }: EventDialogProps) => {
+    const { data: speakers, isLoading: isSpeakersLoading } = useSpeakers()
+    const { data: tags, isLoading: isTagsLoading } = useTags()
+
+    if (isSpeakersLoading || isTagsLoading) return (<div>Loading...</div>);
+
     return (<BasicDialog
         value={event}
-        fields={[
+        getFields={(event) => [
             {
                 key: 'title',
                 title: 'Popisek',
@@ -53,20 +60,49 @@ export const EventDialog = ({ event, onSubmit, close, isOpen }: EventDialogProps
                 key: 'startTime',
                 title: 'Začátek',
                 input: (register) => <input
-                type="datetime-local"
-                {...register('value.startTime', { required: 'Start time is required' })}
-                className="w-full p-2 border rounded"
+                    type="datetime-local"
+                    {...register('value.startTime', { required: 'Start time is required' })}
+                    className="w-full p-2 border rounded"
                 />
             },
             {
                 key: 'endTime',
                 title: 'Konec',
                 input: (register) => <input
-                type="datetime-local"
-                {...register('value.endTime', { required: 'End time is required' })}
-                className="w-full p-2 border rounded"
+                    type="datetime-local"
+                    {...register('value.endTime', { required: 'End time is required' })}
+                    className="w-full p-2 border rounded"
                 />
-            }
+            },
+            {
+                key: 'speakerId',
+                title: 'Řečník',
+                input: (register) => <Select
+                    id="speakerId"
+                    {...register('value.speakerId', { required: 'Event type is required' })}
+                    className="w-full p-2 border rounded"
+                >
+                    {speakers?.map((speaker) => (
+                        <MenuItem key={speaker.id} value={speaker.id}>{speaker.name}</MenuItem>
+                    ))}
+                </Select>
+            },
+            /*{
+                key: 'tags',
+                title: 'Tagy',
+                input: (register) => <Select
+                    multiple={true}
+                    id="tags"
+                    defaultValue={[]}
+                    value={event?.tags ?? []}
+                    inputProps={register('value.tags')}
+                    className="w-full p-2 border rounded"
+                >
+                    {tags?.map((tag) => (
+                        <MenuItem key={tag.id} value={tag.id}>{tag.title}</MenuItem>
+                    ))}
+                </Select>
+            }*/
         ]}
         onSubmit={onSubmit}
         close={close}

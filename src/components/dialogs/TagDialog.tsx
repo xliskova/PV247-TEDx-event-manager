@@ -11,18 +11,15 @@ type TagDialogProps = {
 };
 
 export const TagDialog = ({ tag, onSubmit, close, isOpen }: TagDialogProps) => {
-  const [color, setColor] = React.useState('#ffffff');
+  const [color, setColor] = React.useState(tag?.color ?? '#ffffff');
   const handleChange = (newColor: string) => {
     setColor(newColor);
-    if (tag) {
-      tag.color = newColor;
-    }
   };
 
   return (
     <BasicDialog
       value={tag}
-      fields={[
+      getFields={(tag) => [
         {
           key: 'title',
           title: 'Název',
@@ -41,7 +38,8 @@ export const TagDialog = ({ tag, onSubmit, close, isOpen }: TagDialogProps) => {
           input: (register) => (
             <MuiColorInput
               id="color"
-              value={tag ? tag!.color : color}
+              value={color}
+              fallbackValue={tag?.color}
               {...register('value.color', { required: 'Color is required' })}
               onChange={handleChange}
             />

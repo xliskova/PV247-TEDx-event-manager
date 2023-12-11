@@ -10,9 +10,8 @@ export const EventBasicSchema = z.object({
     eventType: z.string(),
     startTime: z.coerce.date(),
     endTime: z.coerce.date(),
-    // blockId: z.number(),
-    // speakerId: z.number(),
-    // tags: z.array(TagBasicSchema)
+    speakerId: z.number(),
+    tags: z.array(TagBasicSchema)
 });
 
 export type EventBasic = z.infer<typeof EventBasicSchema>;
