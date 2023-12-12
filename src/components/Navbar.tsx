@@ -11,7 +11,7 @@ import React from 'react';
 
 export const Navbar = () => {
   const { data, status } = useSession();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   return (
     <nav className="flex flex-wrap items-center justify-between px-4 md:px-16 py-4 bg-gray-800">
