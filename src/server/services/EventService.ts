@@ -19,8 +19,7 @@ const MapDbEventToEventGetDto = (event : EventWithTags) : EventGetDto => {
         eventType: EventType[event.eventType as keyof typeof EventType],
         startTime: event.startTime,
         endTime: event.endTime,
-        speakerId: event.speakerId!!,
-        // blockId: event.blockId,
+        speakerId: event.speakerId!,
         tags: event.tags.map(e => MapDbTagToTagGetDto(e))
     }
 };
@@ -37,7 +36,7 @@ const MapDbEventToEventDeletedDto = (event : Event) : EventDeletedDto => {
         startTime: event.startTime,
         endTime: event.endTime,
         speakerId: event.speakerId!!,
-        tags: [] //TODO: Fix this
+        tags: []
     }
 };
 
@@ -88,7 +87,6 @@ export const CreateEvent = async (eventCreateDto : EventCreateDto) : Promise<Ser
                 startTime: eventCreateDto.startTime,
                 endTime: eventCreateDto.endTime,
                 speakerId: eventCreateDto.speakerId,
-                // blockId: eventCreateDto.blockId,
                 tags: {
                     connect: eventCreateDto.tags
                 }
@@ -117,9 +115,8 @@ export const UpdateEvent = async (eventUpdateDto : EventUpdateDto) : Promise<Ser
                 startTime: eventUpdateDto.startTime,
                 endTime: eventUpdateDto.endTime,
                 speakerId: eventUpdateDto.speakerId,
-                // blockId: eventUpdateDto.blockId,
                 tags: {
-                //     connect: eventUpdateDto.tags
+                    connect: eventUpdateDto.tags
                 }
             },
             include: { tags: true }
