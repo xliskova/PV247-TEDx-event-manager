@@ -44,10 +44,10 @@ export const BasicTable = <T,>({
         {rows.map((row, rowIndex) => (
           <TableRow key={rowIndex}>
             {columns.map((column, colIndex) => (
-              <TableCell key={colIndex}>{column.valueFn(row)}</TableCell>
+              <TableCell key={colIndex} className={"text-justify"}>{column.valueFn(row)}</TableCell>
             ))}
             <TableCell className="text-right">
-              <div>
+              <div className="flex-row">
                 <IconButton aria-label="edit">
                   <EditIcon onClick={() => editRow(getKey(row))} />
                 </IconButton>

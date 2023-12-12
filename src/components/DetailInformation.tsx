@@ -14,9 +14,9 @@ export const DetailInformation = ({
 }: DetailInformationProps) => {
   return (
     <div
-      className={`flex lg:flex-row flex-col lg:p-16 mb-8 rounded-2xl shadow-md bg-white ${className}`}
+      className={`flex lg:flex-row flex-col lg:p-16 mb-8 rounded-2xl shadow-md bg-white ${className} flex-shrink-0  w-full`}
     >
-      <div className="flex justify-center lg:justify-start md:w-2/5 py-5">
+      <div className="flex justify-center lg:justify-start md:w-2/5">
         <CldImage
           alt={speaker.name}
           src={speaker.url ?? ''}

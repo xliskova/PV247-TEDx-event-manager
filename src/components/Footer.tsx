@@ -12,7 +12,7 @@ const signInUsingDiscord = () => {
 };
 export const Footer = () => {
   return (
-    <footer className="bg-footerGrey px-5 text-grey text-md text-center">
+    <footer className="bg-footerGrey px-5 text-grey text-xs lg:text-base text-center">
       <div className="md:flex justify-between">
         <div className="md:flex md:w-3/4 items-center">
           <Image

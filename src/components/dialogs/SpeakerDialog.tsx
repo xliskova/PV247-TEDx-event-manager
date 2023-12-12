@@ -40,8 +40,7 @@ export const SpeakerDialog = ({
           key: 'description',
           title: 'Popis',
           input: (form) => (
-            <input
-              type="text"
+            <textarea
               id="description"
               {...form.register('value.description', {
                 required: 'Description is required',
