@@ -32,7 +32,7 @@ export const BasicTable = <T,>({
 }: TableProps<T>) => {
   return (
     <Table className="mb-5">
-      <TableHead>
+      <TableHead style={{backgroundColor:'#E62B1E', fontWeight: '700'}}>
         <TableRow>
           {columns.map((column, index) => (
             <TableCell key={index}>{column.name}</TableCell>
@@ -44,10 +44,10 @@ export const BasicTable = <T,>({
         {rows.map((row, rowIndex) => (
           <TableRow key={rowIndex}>
             {columns.map((column, colIndex) => (
-              <TableCell key={colIndex}>{column.valueFn(row)}</TableCell>
+              <TableCell size="large" key={colIndex}>{column.valueFn(row)}</TableCell>
             ))}
-            <TableCell className="justify-end flex">
-              <div className="justify-end flex">
+            <TableCell className="text-right">
+              <div>
                 <IconButton aria-label="edit">
                   <EditIcon onClick={() => editRow(getKey(row))} />
                 </IconButton>

@@ -19,22 +19,22 @@ const CurrentEvent = ({ currentEvents, nextEvent }: CurrentEventProps) => {
     <>
       {currentEvents && currentEvents?.length > 0 && (
         <div>
-          <h3 className="bg-red pb-10 text-3xl text-center">
+          <p className="bg-red pt-10 text-xl text-center">
             Momentálne prebieha:
-          </h3>
+          </p>
           {currentEvents.map((event) => (
-            <p key={event.id} className="bg-red pb-10 text-2xl text-center">
+            <h1 key={event.id} className="bg-red pb-10 text-5xl text-center font-bold">
               {event.title}
-            </p>
+            </h1>
           ))}
         </div>
       )}
       {nextEvent && (
         <div>
-          <p className="bg-red pb-10 text-3xl text-center">
-            Nasledujúci bod programu: {nextEvent?.title}
+          <p className="bg-red pb-10 text-xl text-center">
+            Nasleduje: {nextEvent?.title}
           </p>
-          <p className="bg-red pb-10 text-3xl text-center">
+          <p className="bg-red pb-10 text-xl text-center">
             Zostáva:{' '}
             {formatCountdown(
               nextEvent?.startTime.getTime() - new Date().getTime(),

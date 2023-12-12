@@ -30,7 +30,7 @@ export const EventDialog = ({ event, onSubmit, close, isOpen }: EventDialogProps
         getFields={(event) => [
             {
                 key: 'title',
-                title: 'Popisek',
+                title: 'Názov',
                 input: (form) => <input
                     type="text"
                     id="title"
@@ -50,7 +50,7 @@ export const EventDialog = ({ event, onSubmit, close, isOpen }: EventDialogProps
             },
             {
                 key: 'eventType',
-                title: 'Typ události',
+                title: 'Typ udalosti',
                 input: (form) => <select
                     id="eventType"
                     {...form.register('value.eventType', { required: 'Event type is required' })}
@@ -63,7 +63,7 @@ export const EventDialog = ({ event, onSubmit, close, isOpen }: EventDialogProps
             },
             {
                 key: 'startTime',
-                title: 'Začátek',
+                title: 'Začiatok',
                 input: (form) => <Controller
                     control={form.control}
                     name="value.startTime"
@@ -80,7 +80,7 @@ export const EventDialog = ({ event, onSubmit, close, isOpen }: EventDialogProps
             },
             {
                 key: 'endTime',
-                title: 'Konec',
+                title: 'Koniec',
                 input: (form) => <Controller
                     control={form.control}
                     name="value.endTime"
@@ -97,7 +97,7 @@ export const EventDialog = ({ event, onSubmit, close, isOpen }: EventDialogProps
             },
             {
                 key: 'speakerId',
-                title: 'Řečník',
+                title: 'Rečník',
                 input: (form) => <Select
                     id="speakerId"
                     defaultValue={event?.speakerId}
