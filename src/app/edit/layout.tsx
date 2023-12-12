@@ -12,7 +12,7 @@ export default function AdminLayout({
     return <div>loading...</div>;
   }
   if (status === 'unauthenticated') {
-    return <div>Please log in.</div>;
+    return <div className="h-screen">Please log in.</div>;
   }
   if (
     data?.user.email != 'majky.macho@gmail.com' &&
@@ -21,5 +21,5 @@ export default function AdminLayout({
   ) {
     return <div>Unauthorized</div>;
   }
-  return <div className="h-screen text-center m-16">{children}</div>;
+  return <div className="text-center m-4 lg:m-16">{children}</div>;
 }

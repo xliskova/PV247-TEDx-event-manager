@@ -19,11 +19,11 @@ const CurrentEvent = ({ currentEvents, nextEvent }: CurrentEventProps) => {
     <>
       {currentEvents && currentEvents?.length > 0 && (
         <div>
-          <p className="bg-red pt-10 text-xl text-center">
+          <p className="bg-red pt-10 lg:text-xl text-center">
             Momentálne prebieha:
           </p>
           {currentEvents.map((event) => (
-            <h1 key={event.id} className="bg-red pb-10 text-5xl text-center font-bold">
+            <h1 key={event.id} className="bg-red pb-5 lg:text-3xl text-center font-bold">
               {event.title}
             </h1>
           ))}
@@ -31,10 +31,10 @@ const CurrentEvent = ({ currentEvents, nextEvent }: CurrentEventProps) => {
       )}
       {nextEvent && (
         <div>
-          <p className="bg-red pb-10 text-xl text-center">
+          <p className="bg-red pb-5 text-xl text-center">
             Nasleduje: {nextEvent?.title}
           </p>
-          <p className="bg-red pb-10 text-xl text-center">
+          <p className="bg-red pb-5 text-xl text-center">
             Zostáva:{' '}
             {formatCountdown(
               nextEvent?.startTime.getTime() - new Date().getTime(),

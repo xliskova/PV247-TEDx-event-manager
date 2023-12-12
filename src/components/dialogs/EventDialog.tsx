@@ -41,8 +41,7 @@ export const EventDialog = ({ event, onSubmit, close, isOpen }: EventDialogProps
             {
                 key: 'description',
                 title: 'Popis',
-                input: (form) => <input
-                    type="text"
+                input: (form) => <textarea
                     id="description"
                     {...form.register('value.description', { required: 'Description is required' })}
                     className="w-full p-2 border rounded"
