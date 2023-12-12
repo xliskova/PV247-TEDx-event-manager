@@ -18,7 +18,7 @@ export const TagTable = ({ deleteRow, editRow, tags }: TagTableProps) => {
       getKey={(tag) => tag.id}
       columns={[
         {
-          name: 'Název',
+          name: 'Názov',
           valueFn: (tag) => (
             <Chip
               className="px-5"

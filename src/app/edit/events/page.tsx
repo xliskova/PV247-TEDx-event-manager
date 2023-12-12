@@ -29,7 +29,7 @@ const EditEventsPage = () => {
   };
 
   return (
-    <div>
+    <div className="mb-5">
       <EventDialog
         event={events?.find((it: Event) => it.id === rowToEdit)}
         onSubmit={(event: Event) =>
