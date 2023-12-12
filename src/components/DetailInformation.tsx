@@ -1,11 +1,11 @@
 'use client';
-import { SpeakerGetDto } from '@/server/dto/SpeakerDto';
+
 import { Speaker } from '@/model/Speaker';
 import { CldImage } from 'next-cloudinary';
 
 interface DetailInformationProps {
   className?: string;
-  speaker: SpeakerGetDto;
+  speaker: Speaker;
 }
 
 export const DetailInformation = ({
@@ -25,7 +25,6 @@ export const DetailInformation = ({
           sizes="(min-width: 768px) 100vw,
           (mix-width: 500px) 50vw,
           33vw"
-
         />
       </div>
       <div className="p-6 text-justify">
