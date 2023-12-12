@@ -35,7 +35,8 @@ Admin Access:
 - Vercel for deployment
 
 ## How to run
-### Database setup
+
+### Database setup
 For local testing you need to setup Postgresql database instance and provide these environment variables in `.env`.
 ```
 POSTGRES_URL
