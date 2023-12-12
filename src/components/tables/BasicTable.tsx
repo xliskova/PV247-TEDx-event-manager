@@ -44,7 +44,7 @@ export const BasicTable = <T,>({
         {rows.map((row, rowIndex) => (
           <TableRow key={rowIndex}>
             {columns.map((column, colIndex) => (
-              <TableCell size="large" key={colIndex}>{column.valueFn(row)}</TableCell>
+              <TableCell key={colIndex}>{column.valueFn(row)}</TableCell>
             ))}
             <TableCell className="text-right">
               <div>
