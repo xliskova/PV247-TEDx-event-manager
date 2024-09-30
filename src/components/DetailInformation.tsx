@@ -6,11 +6,13 @@ import { CldImage } from 'next-cloudinary';
 interface DetailInformationProps {
   className?: string;
   speaker: Speaker;
+  isSpeaker: boolean;
 }
 
 export const DetailInformation = ({
   className,
   speaker,
+  isSpeaker,
 }: DetailInformationProps) => {
   return (
     <div
@@ -31,7 +33,11 @@ export const DetailInformation = ({
         <div className="flex justify-between text-red">
           <h1>{speaker.name}</h1>
         </div>
-        <h2 className="pt-5">Popis řečníka:</h2>
+        {isSpeaker ? (
+          <h2 className="pt-5">Popis rečníka:</h2>
+        ) : (
+          <h2 className="pt-5">Popis:</h2>
+        )}
         <span className="whitespace-pre-wrap">{speaker.description}</span>
       </div>
     </div>

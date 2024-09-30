@@ -65,7 +65,6 @@ const useSpeakers = () => useEntity<Speaker>('speakers', (res) => {
 const deleteSpeaker = (id: number, onSuccess: () => void) => deleteEntity('speakers', id, onSuccess);
 
 const saveSpeaker = async (speaker: Speaker, image: File, onSuccess: () => void) => {
-    console.log(image)
     const formData = new FormData();
     formData.append('name', speaker.name);
     formData.append('description', speaker.description);

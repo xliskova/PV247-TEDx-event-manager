@@ -1,7 +1,10 @@
 import { Speaker } from '@/model/Speaker';
 import { Event } from '@/model/Event';
 import { format } from 'date-fns';
-import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeline-component";
+import {
+  VerticalTimeline,
+  VerticalTimelineElement,
+} from 'react-vertical-timeline-component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faMusic,
@@ -11,7 +14,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { EventType } from '@/eventType';
 import { EventCard } from './EventCard';
-
 
 const talkIcon = {
   icon: <FontAwesomeIcon icon={faUser} />,
@@ -55,39 +57,43 @@ export const BlockElement = ({
   currentEvents,
 }: TimelineProps) => {
   return (
-    <VerticalTimeline>
-    {events?.map((item) => {
-      const isActive = currentEvents.includes(item);
-      const contentStyle = isActive
-        ? { background: '#E62B1E', color: 'black' }
-        : undefined;
-      return (
+    <>
+      <VerticalTimeline>
+        {events?.map((item) => {
+          const isActive = currentEvents.includes(item);
+          const contentStyle = isActive
+            ? { background: '#E62B1E', color: 'black' }
+            : undefined;
+          return (
+            <VerticalTimelineElement
+              key={item.id}
+              contentStyle={contentStyle}
+              date={item.startTime && format(new Date(item.startTime), 'HH:mm')}
+              dateClassName="text-left"
+              visible={true}
+              icon={getIcon(item.eventType).icon}
+              iconStyle={getIcon(item.eventType).iconStyle}
+            >
+              {item.eventType && (
+                <EventCard
+                  event={item}
+                  speaker={
+                    speakers!!.find((speaker) => speaker.id == item.speakerId)!!
+                  }
+                  isActive={isActive}
+                />
+              )}
+            </VerticalTimelineElement>
+          );
+        })}
         <VerticalTimelineElement
-          key={item.id}
-          contentStyle={contentStyle}
-          date={
-            item.startTime &&
-            format(new Date(item.startTime), 'HH:mm')
-          }
+          key={events.at(-1)?.id}
           dateClassName="text-left"
           visible={true}
-          icon={getIcon(item.eventType).icon}
-          iconStyle={getIcon(item.eventType).iconStyle}
-        >
-          {item.eventType && (
-            console.log(item),
-            <EventCard
-              event={item}
-              speaker={
-                speakers!!.find((speaker) => speaker.id == item.speakerId)!!
-              }
-              isActive={isActive}
-            />
-          )}
-        </VerticalTimelineElement>
-      );
-    })}
-  </VerticalTimeline>
+          icon={getIcon(EventType.OTHER).icon}
+          iconStyle={getIcon(EventType.OTHER).iconStyle}
+        ></VerticalTimelineElement>
+      </VerticalTimeline>
+    </>
   );
-} 
-  
+};
