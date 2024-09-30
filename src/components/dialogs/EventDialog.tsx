@@ -100,7 +100,7 @@ export const EventDialog = ({ event, onSubmit, close, isOpen }: EventDialogProps
                 input: (form) => <Select
                     id="speakerId"
                     defaultValue={event?.speakerId}
-                    {...form.register('value.speakerId', { required: 'Speaker is required' })}
+                    {...form.register('value.speakerId')}
                     className="w-full p-2 border rounded"
                 >
                     {speakers?.map((speaker) => (
