@@ -11,7 +11,7 @@ import React from 'react';
 
 export const Navbar = () => {
   const { data, status } = useSession();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(window.innerWidth >= 768);
 
   return (
     <nav className="flex flex-wrap items-center justify-between px-4 md:px-16 py-4 bg-gray-800">
@@ -19,38 +19,52 @@ export const Navbar = () => {
         <Image src={Logo} alt="logo" width="200" />
       </Link>
       <div className="sm:hidden px-5">
-        <IconButton aria-label="menu">
-          <DensityMediumIcon onClick={() => setOpen(!open)} />
+        <IconButton aria-label="menu" onClick={() => setOpen(!open)}>
+          <DensityMediumIcon />
         </IconButton>
       </div>
-      {open && (<div>
-      <ul className="flex text-base md:ml-auto">
-        <li>
-          <Link className="mr-6 flex-shrink-0" href="/">
-            <span className="md:text-2xl font-semibold tracking-tight">
-              Program
-            </span>
-          </Link>
-        </li>
-        <li>
-          <Link className="mr-6 flex-shrink-0" href="/speakers">
-            <span className="md:text-2xl font-semibold tracking-tight">
-              Rečníci
-            </span>
-          </Link>
-        </li>
-        <li>
-          <Link className="mr-6 flex-shrink-0" href="/slido">
-            <span className="md:text-2xl font-semibold tracking-tight">Slido</span>
-          </Link>
-        </li>
-        {status === 'authenticated' && (
-          <li>
-            <NavbarEditDropdown />
-          </li>
-        )}
-      </ul>
-      </div>)}
+      {open && (
+        <div>
+          <ul className="flex text-base md:ml-auto">
+            <li>
+              <Link className="mr-6 flex-shrink-0" href="/">
+                <span className="md:text-2xl font-semibold tracking-tight">
+                  Program
+                </span>
+              </Link>
+            </li>
+            <li>
+              <Link className="mr-6 flex-shrink-0" href="/speakers">
+                <span className="md:text-2xl font-semibold tracking-tight">
+                  Rečníci
+                </span>
+              </Link>
+            </li>
+            <li>
+              <Link className="mr-6 flex-shrink-0" href="/slido">
+                <span className="md:text-2xl font-semibold tracking-tight">
+                  Slido
+                </span>
+              </Link>
+            </li>
+            <li>
+              <a
+                className="mr-6 flex-shrink-0 md:text-2xl font-semibold tracking-tight text-blue-500"
+                href="https://www.tedxtrencin.sk/dotaznik"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Dotazník
+              </a>
+            </li>
+            {status === 'authenticated' && (
+              <li>
+                <NavbarEditDropdown />
+              </li>
+            )}
+          </ul>
+        </div>
+      )}
     </nav>
   );
 };

@@ -16,6 +16,7 @@ export const DetailInformation = ({
 }: DetailInformationProps) => {
   return (
     <div
+      id={speaker.id.toString()}
       className={`flex lg:flex-row flex-col lg:p-8 mb-8 py-8 rounded-2xl shadow-md bg-white ${className} flex-shrink-0  w-full`}
     >
       <div className="flex justify-center items-center w-full md:w-1/3">

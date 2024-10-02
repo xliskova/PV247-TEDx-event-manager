@@ -49,12 +49,14 @@ type TimelineProps = {
   events: Event[];
   speakers: Speaker[];
   currentEvents: Event[];
+  isFirstBlock?: boolean;
 };
 
 export const BlockElement = ({
   events,
   speakers,
   currentEvents,
+  isFirstBlock,
 }: TimelineProps) => {
   return (
     <>
@@ -86,13 +88,15 @@ export const BlockElement = ({
             </VerticalTimelineElement>
           );
         })}
-        <VerticalTimelineElement
-          key={events.at(-1)?.id}
-          dateClassName="text-left"
-          visible={true}
-          icon={getIcon(EventType.OTHER).icon}
-          iconStyle={getIcon(EventType.OTHER).iconStyle}
-        ></VerticalTimelineElement>
+        {!isFirstBlock && (
+          <VerticalTimelineElement
+            key={events.at(-1)?.id}
+            dateClassName="text-left"
+            visible={true}
+            icon={getIcon(EventType.OTHER).icon}
+            iconStyle={getIcon(EventType.OTHER).iconStyle}
+          ></VerticalTimelineElement>
+        )}
       </VerticalTimeline>
     </>
   );

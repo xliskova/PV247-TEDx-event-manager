@@ -12,64 +12,55 @@ const signInUsingDiscord = () => {
 };
 export const Footer = () => {
   return (
-    <footer className="bg-footerGrey px-5 text-grey text-xs lg:text-base text-center">
-      <div className="md:flex justify-between">
-        <div className="md:flex md:w-3/4 items-center">
+    <footer className="bg-grey px-5 text-grey text-xs lg:text-base text-center">
+      <hr className="border-grey" />
+      <div className="flex justify-center items-center">
+        <a
+          href="https://tedx.tedxtrencin.sk/podujatia/tedx-trencin-2024-hranice"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Image
             src={tedxImageLogo}
-            alt={'tedxImageLogo'}
-            className="px-16 md:w-1/3"
+            alt="TEDxTrencin Logo"
+            width={200}
+            height={50}
           />
-          <div className="text-justify">
-            <p>
-              Formát TEDx vznikol v duchu motta „myšlienky hodné šírenia&quot; ako
-              program lokálnych, samostatne organizovaných podujatí, ktoré
-              umožňujú ľuďom stretnúť sa kdekoľvek na svete a zažiť atmosféru
-              svetovej konferencie na vlastnej koži.
-            </p>
-          </div>
-        </div>
-        <div className="flex justify-center py-2 lg:pr-16">
-          <IconButton
-            aria-label="Facebook"
-            color="error"
-            component="a"
-            href={'https://www.facebook.com/tedxtrencin?fref=ts'}
-          >
-            <FacebookIcon fontSize="large" />
-          </IconButton>
-          <IconButton
-            aria-label="Instagram"
-            color="error"
-            component="a"
-            href={'https://www.instagram.com/tedxtrencin/'}
-          >
-            <InstagramIcon fontSize="large" />
-          </IconButton>
-          <IconButton
-            aria-label="Twitter"
-            color="error"
-            component="a"
-            href={'https://twitter.com/tedxtrencin'}
-          >
-            <TwitterIcon fontSize="large" />
-          </IconButton>
-        </div>
+        </a>
       </div>
-      <hr className="border-dashed py-3" />
-      <div>
-        <div>
-          © {new Date().getFullYear()} TEDXTRENČÍN. THIS INDEPENDENT TEDX EVENT
-          IS OPERATED UNDER LICENSE FROM TED.
-        </div>
-        <div>
-          <button
-            className="my-3 p-2 border border-red"
-            onClick={signInUsingDiscord}
-          >
-            PRIHLÁSIŤ
-          </button>
-        </div>
+      <div className="flex justify-center items-center">
+        <IconButton
+          aria-label="facebook"
+          onClick={() => {
+            window.open('https://www.facebook.com/TEDxTrencin', '_blank');
+          }}
+        >
+          <FacebookIcon />
+        </IconButton>
+        <IconButton
+          aria-label="instagram"
+          onClick={() => {
+            window.open('https://www.instagram.com/tedxtrencin/', '_blank');
+          }}
+        >
+          <InstagramIcon />
+        </IconButton>
+        <IconButton
+          aria-label="twitter"
+          onClick={() => {
+            window.open('https://twitter.com/tedxtrencin', '_blank');
+          }}
+        >
+          <TwitterIcon />
+        </IconButton>
+      </div>
+      <div className="flex justify-center items-center">
+        <button
+          className="my-3 p-2 border border-red text-black rounded-lg"
+          onClick={signInUsingDiscord}
+        >
+          PRIHLÁSIŤ
+        </button>
       </div>
     </footer>
   );

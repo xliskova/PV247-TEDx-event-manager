@@ -2,6 +2,7 @@ import React from 'react';
 import Chip from '@mui/material/Chip';
 import { Tag } from '@prisma/client';
 import { BasicTable } from './BasicTable';
+import { isColorDark } from '../Tags';
 
 type TagTableProps = {
   deleteRow: (idToBeDeleted: number) => void;
@@ -21,10 +22,16 @@ export const TagTable = ({ deleteRow, editRow, tags }: TagTableProps) => {
           name: 'Názov',
           valueFn: (tag) => (
             <Chip
-              className="px-5"
               key={tag.id}
               label={tag.title}
-              sx={{ bgcolor: tag.color, color: 'black' }}
+              color={'primary'}
+              style={{
+                backgroundColor: tag.color,
+                color: isColorDark(tag.color) ? 'white' : 'black',
+                fontWeight: 'bold',
+                marginBottom: '5px',
+                marginRight: '5px',
+              }}
             />
           ),
         },

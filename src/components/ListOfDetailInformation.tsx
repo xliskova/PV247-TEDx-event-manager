@@ -13,10 +13,10 @@ const ListOfDetailInformationPage = () => {
         {speakers?.map((speaker, index) => (
           <div key={speaker.id}>
             {index === speakers.length - 2 && (
-              <h1 className="text-center p-10">MODERÁTORKA</h1>
+              <h1 className="text-center p-10">PERFORMANCE</h1>
             )}
             {index === speakers.length - 1 && (
-              <h1 className="text-center p-10">PERFORMANCE</h1>
+              <h1 className="text-center p-10">MODERÁTORKA</h1>
             )}
             <DetailInformation
               className={
