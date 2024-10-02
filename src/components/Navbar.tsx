@@ -7,11 +7,15 @@ import Logo from '../images/TEDxTrencin_logo.png';
 import { useSession } from 'next-auth/react';
 import NavbarEditDropdown from '@/components/NavbarEditDropdown';
 import IconButton from '@mui/material/IconButton';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export const Navbar = () => {
   const { data, status } = useSession();
-  const [open, setOpen] = React.useState(window.innerWidth >= 768);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    setOpen(window.innerWidth >= 768);
+  }, []);
 
   return (
     <nav className="flex flex-wrap items-center justify-between px-4 md:px-16 py-4 bg-gray-800">
