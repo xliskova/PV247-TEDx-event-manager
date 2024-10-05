@@ -22,15 +22,15 @@ export const EventCard = ({ event, speaker, isActive }: EventCardProps) => {
 
   return (
     <>
-      <div className="text-left p-2 rounded-lg bg-white">
+      <div className="text-left p-1 rounded-lg bg-white">
         {isActive && (
           <h3 className="text-right font-bold text-red-500">Práve prebieha</h3>
         )}
-        <h1 className="font-bold text-3xl mb-2">{event.title}</h1>
+        <h1 className="font-bold text-2xl mb-2">{event.title}</h1>
         {event.eventType !== 'OTHER' && (
           <>
             <Link href={`speakers/#${event.speakerId}`}>
-              <h3 className="font-bold md:text-3xl text-small mb-4 text-slate-600">
+              <h3 className="font-bold lg:text-3xl text-small mb-4 text-slate-600">
                 {speaker?.name}
               </h3>
             </Link>
@@ -49,7 +49,7 @@ export const EventCard = ({ event, speaker, isActive }: EventCardProps) => {
                   </button>
                 </div>
                 {isDescriptionOpen && event.description && (
-                  <p className="mt-2 p-2 text-justify rounded-lg bg-gray-100 shadow-md">
+                  <p className="mt-2 p-1 rounded-lg bg-gray-100 shadow-md">
                     {event.description}
                   </p>
                 )}
